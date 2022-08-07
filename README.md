@@ -1,7 +1,7 @@
 # XPlug
 **A LUA Platform for Spigot**\
 Version 1.0.0-RC1\
-Supports Minecraft 1.8 to 1.19.1\
+Supports Minecraft 1.8 to 1.19.1
 
 ## THIS PROJECT IS IN HEAVY DEVELOPMENT! DO NOT EXPECT IT TO RESEMBLE A FINISHED PRODUCT
 
@@ -43,7 +43,7 @@ By far the most useful library is the "server" library, for example ``server.Get
 
 #### Events supported by hook.Add
 Event Name | Arguments | Description
---: | :--
+--: | :-: | :--
 Think | nil | Runs every server tick
 PlayerJoin | Player player, String joinMessage | Called when a player joins
 PlayerLeave | Player player, String quitMessage | Called when a player quits
