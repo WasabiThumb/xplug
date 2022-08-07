@@ -1,0 +1,18 @@
+name: XPlug
+version: '${project.version}'
+main: codes.wasabi.xplug.XPlug
+api-version: 1.13
+prefix: XP
+load: STARTUP
+authors: [ Wasabi_Thumbs ]
+description: A LUA platform for Spigot servers
+website: http://wasabi.codes/
+commands:
+  xplug:
+    description: XPlug main command
+    aliases: [ xp ]
+    permission: xplug.xplug
+permissions:
+  xplug.xplug:
+    description: Allows usage of the /xplug command
+    default: true
