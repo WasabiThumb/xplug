@@ -6,7 +6,7 @@ Supports Minecraft 1.8 to 1.19.1
 ## THIS PROJECT IS IN HEAVY DEVELOPMENT! DO NOT EXPECT IT TO RESEMBLE A FINISHED PRODUCT
 
 ## Usage
-When the plugin starts for the first time, a folder called ``scripts`` in ``plugins/XPlug/`` will be filled with the provided sample scripts.\
+When the plugin starts for the first time, a folder called ``scripts`` in ``plugins/XPlug/`` will be filled with the [provided sample scripts](https://github.com/WasabiThumb/xplug/tree/master/src/main/resources/examples).\
 You can run these scripts with ``/xp run <scriptName>``, or create your own by simply adding a .lua file to the scripts folder.\
 You can also make a project by adding a folder to the scripts folder with the name of your project, and adding an index.lua to that folder.\
 You can run your project with ``/xp run <projectName>``.
@@ -31,13 +31,13 @@ xplug run <package> | Runs a LUA package as described [here](#usage) | xplug.run
 
 ### Scripting API
 Documentation for this flavor of LUA is still in progress, however it is inspired in many ways by GMod Lua and some of the libraries intentionally mirror their GMod Lua equivalents.\
-Here is a short list:\
-[timer](https://wiki.facepunch.com/gmod/timer)\
-[hook](https://wiki.facepunch.com/gmod/hook) (hook.Call does not exist. return values must be boolean. boolean false cancels the event, boolean true ensures the event will not be cancelled)\
-http([1](https://wiki.facepunch.com/gmod/http))([2](https://wiki.facepunch.com/gmod/Global.HTTP))\
-A few select methods from [util](https://wiki.facepunch.com/gmod/util) relating to encoding and checksums\
-[PrintTable](https://wiki.facepunch.com/gmod/Global.PrintTable) (not functionally identical)\
-[Vector](https://wiki.facepunch.com/gmod/Global.Vector)\
+**Here is a short list:**
+- [timer](https://wiki.facepunch.com/gmod/timer)
+- [hook](https://wiki.facepunch.com/gmod/hook) (hook.Call does not exist. return values must be boolean. boolean false cancels the event, boolean true ensures the event will not be cancelled)
+- http([1](https://wiki.facepunch.com/gmod/http))([2](https://wiki.facepunch.com/gmod/Global.HTTP))
+- A few select methods from [util](https://wiki.facepunch.com/gmod/util) relating to encoding and checksums
+- [PrintTable](https://wiki.facepunch.com/gmod/Global.PrintTable) (not functionally identical)
+- [Vector](https://wiki.facepunch.com/gmod/Global.Vector)
 
 By far the most useful library is the "server" library, for example ``server.GetPlayers()`` and ``server.GetWorld()``.
 
