@@ -48,7 +48,7 @@ Think | nil | Runs every server tick
 PlayerJoin | Player player, String joinMessage | Called when a player joins
 PlayerLeave | Player player, String quitMessage | Called when a player quits
 PlayerChangeWorld | Player player, World a, World b | Called when a player moves between worlds
-PlayerMove | Player player, number fromX, number fromY, number fromZ, number toX, number toY, number toZ | Called when a player moves within a world. This is being refactored to use the Location API instead of individual numbers
+PlayerMove | Player player, Location a, Location b | Called when a player moves within a world. This is being refactored to use the Location API instead of individual numbers
 PlayerChat | Player player, String message | Called when a player chats
 
 ## Roadmap

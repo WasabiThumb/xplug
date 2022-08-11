@@ -84,9 +84,8 @@ public class SpigotLuaEvents extends LuaEvents implements Listener {
         if (toWorld == null) toWorld = fromWorld;
         if (!fromWorld.getName().equals(toWorld.getName())) {
             helper(event, "PlayerChangeWorld", adapter().convertPlayer(event.getPlayer()), adapter().convertWorld(fromWorld), adapter().convertWorld(toWorld));
-        } else {
-            helper(event, "PlayerMove", adapter().convertPlayer(event.getPlayer()), from.getX(), from.getY(), from.getZ(), to.getX(), to.getY(), to.getZ());
         }
+        helper(event, "PlayerMove", adapter().convertPlayer(event.getPlayer()), adapter().convertLocation(from), adapter().convertLocation(to));
     }
 
     @EventHandler

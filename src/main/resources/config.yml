@@ -1,1 +1,2 @@
-debug: true
+debug: false
+logNil: false

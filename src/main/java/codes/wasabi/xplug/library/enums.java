@@ -56,4 +56,8 @@ public class enums extends TwoArgFunction {
     public static final int AT_PLAYER = 6;
     public static final int AT_WORLD = 7;
 
+    public static final int LEVEL_INFO = 0;
+    public static final int LEVEL_WARN = 1;
+    public static final int LEVEL_ERROR = 2;
+
 }

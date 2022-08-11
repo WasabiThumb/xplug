@@ -8,6 +8,8 @@ package codes.wasabi.xplug;
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
+import codes.wasabi.xplug.util.LuaOutputHandler;
+import codes.wasabi.xplug.util.LuaSandbox;
 import io.papermc.lib.PaperLib;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
@@ -21,9 +23,6 @@ import org.bukkit.command.*;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.luaj.vm2.Globals;
-import org.luaj.vm2.LuaError;
-import org.luaj.vm2.LuaValue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,6 +46,7 @@ public class Commands implements CommandExecutor, TabCompleter {
     }
 
     private final DecimalFormat format = new DecimalFormat("0.##");
+    private int execIndex = 0;
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -131,6 +131,7 @@ public class Commands implements CommandExecutor, TabCompleter {
                     String fn = args[1];
                     File sf = XPlug.getScriptFolder();
                     File target = new File(sf, fn);
+                    String projectName = fn;
                     if (!target.exists()) {
                         boolean exists = false;
                         if (!fn.toLowerCase(Locale.ROOT).endsWith(".lua")) {
@@ -140,6 +141,8 @@ public class Commands implements CommandExecutor, TabCompleter {
                         if (!exists) {
                             a.sendMessage(Component.text("* File does not exist").color(NamedTextColor.RED));
                             break;
+                        } else {
+                            projectName = target.getName().replaceFirst("\\.lua$", "");
                         }
                     }
                     try {
@@ -152,6 +155,7 @@ public class Commands implements CommandExecutor, TabCompleter {
                         break;
                     }
                     if (target.isDirectory()) {
+                        projectName = target.getName();
                         target = new File(target, "index.lua");
                         if (!target.isFile()) {
                             a.sendMessage(Component.text("* Package does not contain an index.lua").color(NamedTextColor.RED));
@@ -160,7 +164,8 @@ public class Commands implements CommandExecutor, TabCompleter {
                     }
                     a.sendMessage(Component.text("* Loading script...").color(NamedTextColor.GREEN));
                     final File src = target;
-                    final Globals env = XPlug.getEnvironment();
+                    final LuaSandbox sandbox = XPlug.getSandbox();
+                    final String finalProjectName = sandbox.resolveProjectName(projectName);
                     Executors.newSingleThreadExecutor().execute(() -> {
                         BigDecimal bytes = new BigDecimal(FileUtils.sizeOfAsBigInteger(src));
                         BigDecimal readBytes = BigDecimal.ZERO;
@@ -187,19 +192,7 @@ public class Commands implements CommandExecutor, TabCompleter {
                         }
                         a.sendMessage(Component.text("* Running").color(NamedTextColor.GREEN));
                         String script = sb.toString();
-                        Bukkit.getScheduler().runTask(XPlug.getInstance(), () -> {
-                            LuaValue lv;
-                            try {
-                                lv = env.load(script).call();
-                            } catch (LuaError le) {
-                                a.sendMessage(Component.empty()
-                                        .append(Component.text("Lua Error in " + fn + ": ").color(NamedTextColor.RED))
-                                        .append(Component.text(le.getMessage()).color(NamedTextColor.DARK_RED))
-                                );
-                                return;
-                            }
-                            a.sendMessage(Component.text("[" + fn + "] > " + lv.tojstring()).color(NamedTextColor.GRAY));
-                        });
+                        Bukkit.getScheduler().runTask(XPlug.getInstance(), () -> sandbox.run(script, finalProjectName, LuaOutputHandler.ofAudience(finalProjectName, a)));
                     });
                 } else if (args.length > 2) {
                     a.sendMessage(Component.text("* Too many arguments!").color(NamedTextColor.RED));
@@ -215,19 +208,11 @@ public class Commands implements CommandExecutor, TabCompleter {
                 }
                 String run = sb.toString();
                 a.sendMessage(Component.text(run).color(NamedTextColor.GRAY));
-                final Globals env = XPlug.getEnvironment();
+                final LuaSandbox sandbox = XPlug.getSandbox();
                 Bukkit.getScheduler().runTask(XPlug.getInstance(), () -> {
-                    LuaValue lv;
-                    try {
-                        lv = env.load(run).call();
-                    } catch (LuaError le) {
-                        a.sendMessage(Component.empty()
-                                .append(Component.text("Lua Error: ").color(NamedTextColor.RED))
-                                .append(Component.text(le.getMessage()).color(NamedTextColor.DARK_RED))
-                        );
-                        return;
-                    }
-                    a.sendMessage(Component.text("> " + lv.tojstring()).color(NamedTextColor.GRAY));
+                    execIndex += 1;
+                    String projectName = sandbox.resolveProjectName("exec-" + execIndex);
+                    sandbox.run(run, projectName, LuaOutputHandler.ofAudience(projectName, a));
                 });
                 break;
             default:
