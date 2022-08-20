@@ -50,7 +50,7 @@
                 const sub = document.createElement("div");
                 sub.classList.add("browserSub");
                 for (let z=0; z < entries.length; z++) {
-                    let entry = entries[z];
+                    let entry = JSON.parse(JSON.stringify(entries[z]));
                     let p1 = document.createElement("p");
                     p1.classList.add("browserEntry");
                     if (entry.type !== 0) p1.classList.add("type" + entry.type);
