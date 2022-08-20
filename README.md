@@ -31,15 +31,8 @@ xplug run <package> | Runs a LUA package as described [here](#usage) | xplug.run
 
 ### Scripting API
 Documentation for this flavor of LUA is still in progress, however it is inspired in many ways by GMod Lua and some of the libraries intentionally mirror their GMod Lua equivalents.\
-**Here is a short list:**
-- [timer](https://wiki.facepunch.com/gmod/timer)
-- [hook](https://wiki.facepunch.com/gmod/hook) (hook.Call does not exist. return values must be boolean or nil. nil does nothing and continues to the next event. boolean false cancels the event, boolean true ensures the event will not be cancelled)
-- http([1](https://wiki.facepunch.com/gmod/http))([2](https://wiki.facepunch.com/gmod/Global.HTTP))
-- A few select methods from [util](https://wiki.facepunch.com/gmod/util) relating to encoding and checksums
-- [PrintTable](https://wiki.facepunch.com/gmod/Global.PrintTable) (not functionally identical)
-- [Vector](https://wiki.facepunch.com/gmod/Global.Vector)
-
-By far the most useful library is the "server" library, for example ``server.GetPlayers()`` and ``server.GetWorld()``.
+By far the most useful library is the "server" library, for example ``server.GetPlayers()`` and ``server.GetWorld()``.\
+See the experimental API wiki here: [https://wasabithumb.github.io/xplug/](https://wasabithumb.github.io/xplug/)
 
 #### Events supported by hook.Add
 Event Name | Arguments | Description
