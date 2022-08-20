@@ -32,12 +32,13 @@
         });
     });
 
-    const construct = (() => {
+    const construct = ((ts) => {
         const body = document.getElementById("explorerBody");
         body.innerHTML = "";
 
-        for (let i=0; i < topics.length; i++) {
-            let topic = topics[i];
+        ts = JSON.parse(JSON.stringify(ts));
+        for (let i=0; i < ts.length; i++) {
+            let topic = ts[i];
             const p = document.createElement("p");
             p.classList.add("browserHeader");
             p.classList.add("browserEntry");
@@ -138,6 +139,114 @@
             req.open("GET", "/xplug/assets/json/topics.json", true);
             req.send(null);
         })
-    ]).then(construct).catch(console.error);
+    ]).then(() => {
+        construct(topics);
+
+        const testItem = ((item, term) => {
+            if ((item.title || "").toLowerCase().includes(term)) return true;
+            return (item.id || "").toLowerCase().includes(term);
+        });
+
+        const filterTopics = ((searchTerm) => {
+            if (searchTerm.length < 1) return topics;
+            searchTerm = searchTerm.toLowerCase().replaceAll(/[:\.]/g, "/");
+            let nt = [];
+            let topicsCopy = JSON.parse(JSON.stringify(topics));
+            for (let y=0; y < topicsCopy.length; y++) {
+                let topic = topicsCopy[y];
+                let entries = (Array.isArray(topic.entries) ? topic.entries : []);
+                let newEntries = [];
+                for (let g=0; g < entries.length; g++) {
+                    let entry = entries[g];
+                    if (testItem(entry, searchTerm)) {
+                        newEntries.push(entry);
+                    } else {
+                        let children = entry.children;
+                        let newChildren = [];
+                        if (Array.isArray(children)) {
+                            for (let u=0; u < children.length; u++) {
+                                let child = children[u];
+                                if (testItem(child, searchTerm)) newChildren.push(child);
+                            }
+                            if (newChildren.length > 0) {
+                                entry.children = newChildren;
+                                newEntries.push(entry);
+                            }
+                        }
+                    }
+                }
+                topic.entries = newEntries;
+                nt.push(topic);
+            }
+            return nt;
+        });
+
+        const now = (() => {
+            let performance = (window.performance || performance);
+            if (performance) {
+                if (performance.now) {
+                    return performance.now();
+                }
+            }
+            let date = (window.Date || Date);
+            if (date) {
+                if (date.now) {
+                    return date.now();
+                } else {
+                    return (new Date()).now();
+                }
+            }
+            return 0;
+        });
+
+        let storage = (() => {
+            let stor = (window.sessionStorage || sessionStorage);
+            if (stor) {
+                return {
+                    "get": (() => stor.getItem("slow-hardware") === "true"),
+                    "set": ((value) => stor.setItem("slow-hardware", value ? "true" : "false"))
+                }
+            } else {
+                return {
+                    "get": (() => {
+                        let matches = (document.cookie || "").match(/slow-hardware=(true|false)/);
+                        if (Array.isArray(matches)) {
+                            if (matches.length > 1) return (matches[1] === "true");
+                        }
+                        return false;
+                    }),
+                    "set": ((value) => {
+                        document.cookie = "slow-hardware=" + (value ? "true" : "false") + ";path=/";
+                    })
+                }
+            }
+        })();
+
+        let isSlow = storage.get();
+        const benchFilterTopics = ((searchTerm) => {
+            let start = now();
+            let ret = filterTopics(searchTerm);
+            let elapsed = now() - start;
+            isSlow = (elapsed > 5);
+            storage.set(isSlow);
+            return ret;
+        });
+        benchFilterTopics("test");
+
+        let inp = document.getElementById("searchText");
+        let btn = document.getElementById("searchBtn");
+
+        inp.addEventListener("keyup", () => {
+            if (!isSlow) construct(benchFilterTopics(inp.value));
+        });
+
+        inp.addEventListener("change", () => {
+            if (!isSlow) construct(benchFilterTopics(inp.value));
+        });
+
+        btn.addEventListener("click", () => {
+            construct(benchFilterTopics(inp.value));
+        });
+    }).catch(console.error);
 
 })();
