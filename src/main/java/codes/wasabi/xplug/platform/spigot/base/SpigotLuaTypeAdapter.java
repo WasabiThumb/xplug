@@ -9,6 +9,7 @@ package codes.wasabi.xplug.platform.spigot.base;
 */
 
 import codes.wasabi.xplug.platform.spigot.base.command.SpigotLuaCommandSender;
+import codes.wasabi.xplug.platform.spigot.base.entity.SpigotLuaEntity;
 import codes.wasabi.xplug.platform.spigot.base.entity.SpigotLuaNPC;
 import codes.wasabi.xplug.platform.spigot.base.entity.SpigotLuaPlayer;
 import codes.wasabi.xplug.platform.spigot.base.text.SpigotLuaAudience;
@@ -98,10 +99,8 @@ public abstract class SpigotLuaTypeAdapter {
     }
 
     public @Nullable Entity convertEntity(@NotNull LuaEntity e) {
-        if (e instanceof SpigotLuaNPC) {
-            return ((SpigotLuaNPC) e).getBukkitEntity();
-        } else if (e instanceof SpigotLuaPlayer) {
-            return ((SpigotLuaPlayer) e).getBukkitPlayer();
+        if (e instanceof SpigotLuaEntity) {
+            return ((SpigotLuaEntity) e).getBukkitEntity();
         } else {
             UUID uuid = UUID.fromString(e.getUUID());
             for (World w : Bukkit.getWorlds()) {

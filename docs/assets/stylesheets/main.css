@@ -1,0 +1,291 @@
+
+/* GF: Noto Sans, Ubuntu Mono */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,900&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+html, body {
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans', Noto Sans, sans-serif;
+    overflow-x: hidden;
+}
+
+body {
+    background-image: url("../images/dark_pattern.png");
+    background-size: 0.75vw auto;
+    background-repeat: repeat;
+    background-position: center;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 15vh;
+    font-size: 10vh;
+    font-family: Noto Sans, sans-serif;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-align: left;
+    z-index: 2;
+}
+
+header > img.logo {
+    height: 1em;
+    display: inline-block;
+    margin-left: 0.25em;
+    margin-top: 0.25em;
+}
+
+header > p {
+    font-size: 0.4em;
+    display: inline-block;
+    position: relative;
+    top: -0.4em;
+    left: -0.2em;
+    font-weight: lighter;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+header > nav {
+    position: absolute;
+    right: 0.5em;
+    top: 5vh;
+    font-size: 0.5em;
+}
+
+header > nav > a {
+    font-size: inherit;
+    text-decoration: none;
+    color: inherit;
+}
+
+header > nav > a > img {
+    height: 1em;
+    filter: invert(100%);
+}
+
+.codeContainer {
+    display: inline-block;
+    background-color: rgb(255, 255, 220);
+    padding: 0.3em;
+    border-radius: 0.5em;
+    color: black;
+    font-family: Ubuntu Mono, monospace;
+    width: 95%;
+    height: min-content;
+}
+
+main {
+    position: absolute;
+    top: 15vh;
+    left: 26vw;
+    width: 74vw;
+    color: white;
+}
+
+:root {
+    --explorer-search-height: min(4vw, 4vh);
+}
+
+.explorer {
+    position: fixed;
+    top: 17.5vh;
+    left: 0;
+    width: 24vw;
+    background-color: rgb(10, 10, 10);
+    height: 80vh;
+    border-top-right-radius: min(1vw, 1vh);
+    border-bottom-right-radius: min(1vw, 1vh);
+    box-sizing: border-box;
+    border: min(0.2vw, 0.2vh) solid rgb(70, 70, 70);
+    overflow: hidden;
+}
+
+.explorer > .searchBar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: var(--explorer-search-height);
+    background-color: rgb(255, 255, 220);
+    width: 100%;
+}
+
+.explorer > .searchBar > button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: var(--explorer-search-height);
+    height: var(--explorer-search-height);
+    background-color: #067c62;
+    box-sizing: border-box;
+    border: none;
+    padding: 0;
+}
+
+.explorer > .searchBar > button > img {
+    width: 90%;
+    margin: 5%;
+    height: 90%;
+    opacity: 0.4;
+}
+
+.explorer > .searchBar > input {
+    position: absolute;
+    box-sizing: border-box;
+    padding-left: 0.5vw;
+    border: none;
+    left: 0;
+    top: 0;
+    width: calc(100% - var(--explorer-search-height));
+    height: 100%;
+    background: none;
+}
+
+.explorer > .body {
+    position: absolute;
+    top: min(4.5vw, 4.5vh);
+    left: 0;
+    width: 100%;
+    height: calc(99.5% - min(4vw,4vh));
+    overflow-y: auto;
+}
+
+.varContainer {
+    position: relative;
+    display: block;
+    width: 95%;
+    min-height: 1em;
+    margin-bottom: 0.8em;
+}
+
+.varContainer > .index {
+    position: absolute;
+    top: 0;
+    left: 2vw;
+    font-size: 0.8em;
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 0.2em;
+    color: #024737;
+    text-align: center;
+    font-weight: bold;
+    background-color: #067c62;
+    line-height: 1.2em;
+}
+
+.varContainer > .name {
+    position: relative;
+    top: -0.1em;
+    left: 3.8vw;
+    color: white;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.varContainer > .desc {
+    position: relative;
+    left: 3vw;
+    top: 0.3em;
+    color: white;
+    font-size: 0.6em;
+}
+
+:root {
+    --main-base-text: 1.25vw;
+    --main-head-text: 3vw;
+    --main-head2-text: 2vw;
+    --main-code-text: 1vw;
+}
+
+main {
+    font-size: var(--main-base-text);
+}
+
+main > h1 {
+    font-size: var(--main-head-text);
+    color: #067c62;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0.1em;
+}
+
+main > h2 {
+    font-size: var(--main-head2-text);
+    color: #024737;
+    text-align: left;
+    width: 95%;
+    border-bottom: 0.1em solid #024737;
+    margin-top: 0;
+    margin-bottom: 0.2em;
+}
+
+main > .codeContainer {
+    font-size: var(--main-code-text);
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.browserHeader {
+    font-size: max(1vw, 1vh);
+    color: white;
+    font-weight: bold;
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+    margin-left: 0.2em;
+}
+
+.browserSub {
+    display: block;
+    margin-left: 0.5vw;
+    font-size: max(0.75vw, 0.75vh);
+    color: white;
+}
+
+.browserEntry {
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+    cursor: pointer;
+}
+
+.browserEntry::before {
+    content: "";
+    height: 0.8em;
+    aspect-ratio: 1;
+    background-color: white;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.browserEntry.type1::before {
+    background-color: #067c62;
+}
+
+.browserEntry.type2::before {
+    background-color: #27067C;
+}
+
+.browserEntry.type3::before {
+    background-color: #7C0620;
+}
+
+.browserEntry.type4::before {
+    background-color: #5B7C06;
+}
+
+.browserEntry:hover {
+    background-color: rgb(70, 70, 70);
+    border-left: 50vw solid rgb(70, 70, 70);
+    margin-left: -50vw;
+}
+
+.browserHeader:hover {
+    margin-left: calc(-50vw + 0.2em);
+}
+
+#explorerBody {
+    color: white;
+}

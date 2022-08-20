@@ -9,12 +9,7 @@ package codes.wasabi.xplug.platform.spigot.base.entity;
 */
 
 import codes.wasabi.xplug.XPlug;
-import codes.wasabi.xplug.platform.spigot.base.SpigotLuaToolkit;
-import codes.wasabi.xplug.struct.data.LuaLocation;
-import codes.wasabi.xplug.struct.data.LuaVector;
 import codes.wasabi.xplug.struct.entity.LuaPlayer;
-import codes.wasabi.xplug.struct.world.LuaWorld;
-import io.papermc.lib.PaperLib;
 import net.kyori.adventure.key.InvalidKeyException;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -24,13 +19,13 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.kyori.adventure.title.Title;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.util.Vector;
 import org.intellij.lang.annotations.Subst;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SpigotLuaPlayer extends LuaPlayer {
+public class SpigotLuaPlayer extends LuaPlayer implements SpigotLuaEntity {
 
     private final Player entity;
     private final BukkitAudiences av = XPlug.getAdventure();
@@ -39,84 +34,13 @@ public class SpigotLuaPlayer extends LuaPlayer {
         this.entity = entity;
     }
 
-    public Player getBukkitPlayer() {
+    @Override
+    public Entity getBukkitEntity() {
         return entity;
     }
 
-    @Override
-    public String getUUID() {
-        return entity.getUniqueId().toString();
-    }
-
-    @Override
-    public LuaLocation getLocation() {
-        return SpigotLuaToolkit.getAdapter().convertLocation(entity.getLocation());
-    }
-
-    @Override
-    public LuaWorld getWorld() {
-        return SpigotLuaToolkit.getAdapter().convertWorld(entity.getWorld());
-    }
-
-    @Override
-    public double getX() {
-        return entity.getLocation().getX();
-    }
-
-    @Override
-    public double getY() {
-        return entity.getLocation().getY();
-    }
-
-    @Override
-    public double getZ() {
-        return entity.getLocation().getZ();
-    }
-
-    @Override
-    public int getEntityID() {
-        return entity.getEntityId();
-    }
-
-    @Override
-    public void remove() {
-        entity.remove();
-    }
-
-    @Override
-    public String getType() {
-        return entity.getType().toString();
-    }
-
-    @Override
-    public void teleport(LuaLocation loc) {
-        entity.teleport(SpigotLuaToolkit.getAdapter().convertLocation(loc));
-    }
-
-    @Override
-    public void teleportAsync(LuaLocation loc) {
-        PaperLib.teleportAsync(entity, SpigotLuaToolkit.getAdapter().convertLocation(loc));
-    }
-
-    @Override
-    public void damage(double amount) {
-        entity.damage(amount);
-    }
-
-    @Override
-    public double getHealth() {
-        return entity.getHealth();
-    }
-
-    @Override
-    public boolean isDead() {
-        return entity.isDead();
-    }
-
-    @Override
-    public LuaVector getVelocity() {
-        Vector vel = entity.getVelocity();
-        return SpigotLuaToolkit.getAdapter().convertVector(vel);
+    public Player getBukkitPlayer() {
+        return entity;
     }
 
     @Override

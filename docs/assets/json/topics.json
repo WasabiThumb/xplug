@@ -1,0 +1,1432 @@
+[
+  {
+    "title": "Articles",
+    "icon": "",
+    "entries": [
+      {
+        "title": "Getting Started",
+        "id": "getting-started",
+        "type": 4
+      },
+      {
+        "title": "LUA API Overview",
+        "id": "lua-api",
+        "type": 4
+      },
+      {
+        "title": "Java API Overview",
+        "id": "java-api",
+        "type": 4
+      }
+    ]
+  },
+  {
+    "title": "Libraries",
+    "icon": "",
+    "entries": [
+      {
+        "title": "bit32",
+        "id": "bit32",
+        "type": 1,
+        "children": [
+          {
+            "title": "arshift",
+            "id": "bit32/arshift",
+            "type": 3
+          },
+          {
+            "title": "band",
+            "id": "bit32/band",
+            "type": 3
+          },
+          {
+            "title": "bnot",
+            "id": "bit32/bnot",
+            "type": 3
+          },
+          {
+            "title": "bor",
+            "id": "bit32/bor",
+            "type": 3
+          },
+          {
+            "title": "btest",
+            "id": "bit32/btest",
+            "type": 3
+          },
+          {
+            "title": "bxor",
+            "id": "bit32/bxor",
+            "type": 3
+          },
+          {
+            "title": "extract",
+            "id": "bit32/extract",
+            "type": 3
+          },
+          {
+            "title": "replace",
+            "id": "bit32/replace",
+            "type": 3
+          },
+          {
+            "title": "lrotate",
+            "id": "bit32/lrotate",
+            "type": 3
+          },
+          {
+            "title": "lshift",
+            "id": "bit32/lshift",
+            "type": 3
+          },
+          {
+            "title": "rrotate",
+            "id": "bit32/rrotate",
+            "type": 3
+          },
+          {
+            "title": "rshift",
+            "id": "bit32/rshift",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "command",
+        "id": "command",
+        "type": 1,
+        "children": [
+          {
+            "title": "Create",
+            "id": "command/Create",
+            "type": 3
+          },
+          {
+            "title": "GetOrCreate",
+            "id": "command/GetOrCreate",
+            "type": 3
+          },
+          {
+            "title": "Get",
+            "id": "command/Get",
+            "type": 3
+          },
+          {
+            "title": "Remove",
+            "id": "command/Remove",
+            "type": 3
+          },
+          {
+            "title": "Exists",
+            "id": "command/Exists",
+            "type": 3
+          },
+          {
+            "title": "GetAll",
+            "id": "command/GetAll",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "coroutine",
+        "id": "coroutine",
+        "type": 1,
+        "children": [
+          {
+            "title": "create",
+            "id": "coroutine/create",
+            "type": 3
+          },
+          {
+            "title": "isyieldable",
+            "id": "coroutine/isyieldable",
+            "type": 3
+          },
+          {
+            "title": "resume",
+            "id": "coroutine/resume",
+            "type": 3
+          },
+          {
+            "title": "running",
+            "id": "coroutine/running",
+            "type": 3
+          },
+          {
+            "title": "status",
+            "id": "coroutine/status",
+            "type": 3
+          },
+          {
+            "title": "wrap",
+            "id": "coroutine/wrap",
+            "type": 3
+          },
+          {
+            "title": "yield",
+            "id": "coroutine/yield",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "hook",
+        "id": "hook",
+        "type": 1,
+        "children": [
+          {
+            "title": "Add",
+            "id": "hook/Add",
+            "type": 3
+          },
+          {
+            "title": "GetTable",
+            "id": "hook/GetTable",
+            "type": 3
+          },
+          {
+            "title": "Remove",
+            "id": "hook/Remove",
+            "type": 3
+          },
+          {
+            "title": "Run",
+            "id": "hook/Run",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "http",
+        "id": "http",
+        "type": 1,
+        "children": [
+          {
+            "title": "Fetch",
+            "id": "http/Fetch",
+            "type": 3
+          },
+          {
+            "title": "Post",
+            "id": "http/Post",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "io",
+        "id": "io",
+        "type": 1,
+        "children": [
+          {
+            "title": "close",
+            "id": "io/close",
+            "type": 3
+          },
+          {
+            "title": "flush",
+            "id": "io/flush",
+            "type": 3
+          },
+          {
+            "title": "input",
+            "id": "io/input",
+            "type": 3
+          },
+          {
+            "title": "lines",
+            "id": "io/lines",
+            "type": 3
+          },
+          {
+            "title": "open",
+            "id": "io/open",
+            "type": 3
+          },
+          {
+            "title": "output",
+            "id": "io/output",
+            "type": 3
+          },
+          {
+            "title": "popen",
+            "id": "io/popen",
+            "type": 3
+          },
+          {
+            "title": "read",
+            "id": "io/read",
+            "type": 3
+          },
+          {
+            "title": "tmpfile",
+            "id": "io/tmpfile",
+            "type": 3
+          },
+          {
+            "title": "type",
+            "id": "io/type",
+            "type": 3
+          },
+          {
+            "title": "write",
+            "id": "io/write",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "math",
+        "id": "math",
+        "type": 1,
+        "children": [
+          {
+            "title": "abs",
+            "id": "math/abs",
+            "type": 3
+          },
+          {
+            "title": "acos",
+            "id": "math/acos",
+            "type": 3
+          },
+          {
+            "title": "asin",
+            "id": "math/asin",
+            "type": 3
+          },
+          {
+            "title": "atan",
+            "id": "math/atan",
+            "type": 3
+          },
+          {
+            "title": "ceil",
+            "id": "math/ceil",
+            "type": 3
+          },
+          {
+            "title": "cos",
+            "id": "math/cos",
+            "type": 3
+          },
+          {
+            "title": "deg",
+            "id": "math/deg",
+            "type": 3
+          },
+          {
+            "title": "exp",
+            "id": "math/exp",
+            "type": 3
+          },
+          {
+            "title": "floor",
+            "id": "math/floor",
+            "type": 3
+          },
+          {
+            "title": "fmod",
+            "id": "math/fmod",
+            "type": 3
+          },
+          {
+            "title": "huge",
+            "id": "math/huge",
+            "type": 2
+          },
+          {
+            "title": "log",
+            "id": "math/log",
+            "type": 3
+          },
+          {
+            "title": "max",
+            "id": "math/max",
+            "type": 3
+          },
+          {
+            "title": "maxinteger",
+            "id": "math/maxinteger",
+            "type": 2
+          },
+          {
+            "title": "modf",
+            "id": "math/modf",
+            "type": 3
+          },
+          {
+            "title": "pi",
+            "id": "math/pi",
+            "type": 2
+          },
+          {
+            "title": "rad",
+            "id": "math/rad",
+            "type": 3
+          },
+          {
+            "title": "random",
+            "id": "math/random",
+            "type": 3
+          },
+          {
+            "title": "randomseed",
+            "id": "math/randomseed",
+            "type": 3
+          },
+          {
+            "title": "sin",
+            "id": "math/sin",
+            "type": 3
+          },
+          {
+            "title": "sqrt",
+            "id": "math/sqrt",
+            "type": 3
+          },
+          {
+            "title": "tan",
+            "id": "math/tan",
+            "type": 3
+          },
+          {
+            "title": "tointeger",
+            "id": "math/tointeger",
+            "type": 3
+          },
+          {
+            "title": "type",
+            "id": "math/type",
+            "type": 3
+          },
+          {
+            "title": "ult",
+            "id": "math/ult",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "os",
+        "id": "os",
+        "type": 1,
+        "children": [
+          {
+            "title": "clock",
+            "id": "os/clock",
+            "type": 3
+          },
+          {
+            "title": "date",
+            "id": "os/date",
+            "type": 3
+          },
+          {
+            "title": "difftime",
+            "id": "os/difftime",
+            "type": 3
+          },
+          {
+            "title": "execute",
+            "id": "os/execute",
+            "type": 3
+          },
+          {
+            "title": "exit",
+            "id": "os/exit",
+            "type": 3
+          },
+          {
+            "title": "getenv",
+            "id": "os/getenv",
+            "type": 3
+          },
+          {
+            "title": "remove",
+            "id": "os/remove",
+            "type": 3
+          },
+          {
+            "title": "rename",
+            "id": "os/rename",
+            "type": 3
+          },
+          {
+            "title": "setlocale",
+            "id": "os/setlocale",
+            "type": 3
+          },
+          {
+            "title": "time",
+            "id": "os/time",
+            "type": 3
+          },
+          {
+            "title": "tmpname",
+            "id": "os/tmpname",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "particle",
+        "id": "particle",
+        "type": 1,
+        "children": [
+          {
+            "title": "Start",
+            "id": "particle/Start",
+            "type": 3
+          },
+          {
+            "title": "SetAmount",
+            "id": "particle/SetAmount",
+            "type": 3
+          },
+          {
+            "title": "SetColor",
+            "id": "particle/SetColor",
+            "type": 3
+          },
+          {
+            "title": "SetOffsetX",
+            "id": "particle/SetOffsetX",
+            "type": 3
+          },
+          {
+            "title": "SetOffsetY",
+            "id": "particle/SetOffsetY",
+            "type": 3
+          },
+          {
+            "title": "SetOffsetZ",
+            "id": "particle/SetOffsetZ",
+            "type": 3
+          },
+          {
+            "title": "SetSpeed",
+            "id": "particle/SetSpeed",
+            "type": 3
+          },
+          {
+            "title": "End",
+            "id": "particle/End",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "project",
+        "id": "project",
+        "type": 1,
+        "children": [
+          {
+            "title": "GetName",
+            "id": "project/GetName",
+            "type": 3
+          },
+          {
+            "title": "Export",
+            "id": "project/Export",
+            "type": 3
+          },
+          {
+            "title": "Import",
+            "id": "project/Import",
+            "type": 3
+          },
+          {
+            "title": "Log",
+            "id": "project/Log",
+            "type": 3
+          },
+          {
+            "title": "LogInfo",
+            "id": "project/LogInfo",
+            "type": 3
+          },
+          {
+            "title": "LogWarn",
+            "id": "project/LogWarn",
+            "type": 3
+          },
+          {
+            "title": "LogError",
+            "id": "project/LogError",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "server",
+        "id": "server",
+        "type": 1,
+        "children": [
+          {
+            "title": "GetWorlds",
+            "id": "server/GetWorlds",
+            "type": 3
+          },
+          {
+            "title": "GetWorld",
+            "id": "server/GetWorld",
+            "type": 3
+          },
+          {
+            "title": "GetVersion",
+            "id": "server/GetVersion",
+            "type": 3
+          },
+          {
+            "title": "GetConsole",
+            "id": "server/GetConsole",
+            "type": 3
+          },
+          {
+            "title": "GetPlayers",
+            "id": "server/GetPlayers",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "string",
+        "id": "string",
+        "type": 1,
+        "children": [
+          {
+            "title": "byte",
+            "id": "string/byte",
+            "type": 3
+          },
+          {
+            "title": "char",
+            "id": "string/char",
+            "type": 3
+          },
+          {
+            "title": "dump",
+            "id": "string/dump",
+            "type": 3
+          },
+          {
+            "title": "find",
+            "id": "string/find",
+            "type": 3
+          },
+          {
+            "title": "format",
+            "id": "string/format",
+            "type": 3
+          },
+          {
+            "title": "gmatch",
+            "id": "string/gmatch",
+            "type": 3
+          },
+          {
+            "title": "gsub",
+            "id": "string/gsub",
+            "type": 3
+          },
+          {
+            "title": "len",
+            "id": "string/len",
+            "type": 3
+          },
+          {
+            "title": "lower",
+            "id": "string/lower",
+            "type": 3
+          },
+          {
+            "title": "match",
+            "id": "string/match",
+            "type": 3
+          },
+          {
+            "title": "pack",
+            "id": "string/pack",
+            "type": 3
+          },
+          {
+            "title": "packsize",
+            "id": "string/packsize",
+            "type": 3
+          },
+          {
+            "title": "rep",
+            "id": "string/rep",
+            "type": 3
+          },
+          {
+            "title": "reverse",
+            "id": "string/reverse",
+            "type": 3
+          },
+          {
+            "title": "sub",
+            "id": "string/sub",
+            "type": 3
+          },
+          {
+            "title": "unpack",
+            "id": "string/unpack",
+            "type": 3
+          },
+          {
+            "title": "upper",
+            "id": "string/upper",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "table",
+        "id": "table",
+        "type": 1,
+        "children": [
+          {
+            "title": "concat",
+            "id": "table/concat",
+            "type": 3
+          },
+          {
+            "title": "insert",
+            "id": "table/insert",
+            "type": 3
+          },
+          {
+            "title": "move",
+            "id": "table/move",
+            "type": 3
+          },
+          {
+            "title": "pack",
+            "id": "table/pack",
+            "type": 3
+          },
+          {
+            "title": "remove",
+            "id": "table/remove",
+            "type": 3
+          },
+          {
+            "title": "sort",
+            "id": "table/sort",
+            "type": 3
+          },
+          {
+            "title": "unpack",
+            "id": "table/unpack",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "timer",
+        "id": "timer",
+        "type": 1,
+        "children": [
+          {
+            "title": "Simple",
+            "id": "timer/Simple",
+            "type": 3
+          },
+          {
+            "title": "Create",
+            "id": "timer/Create",
+            "type": 3
+          },
+          {
+            "title": "Adjust",
+            "id": "timer/Adjust",
+            "type": 3
+          },
+          {
+            "title": "Exists",
+            "id": "timer/Exists",
+            "type": 3
+          },
+          {
+            "title": "Pause",
+            "id": "timer/Pause",
+            "type": 3
+          },
+          {
+            "title": "UnPause",
+            "id": "timer/UnPause",
+            "type": 3
+          },
+          {
+            "title": "Remove",
+            "id": "timer/Remove",
+            "type": 3
+          },
+          {
+            "title": "RepsLeft",
+            "id": "timer/RepsLeft",
+            "type": 3
+          },
+          {
+            "title": "Start",
+            "id": "timer/Start",
+            "type": 3
+          },
+          {
+            "title": "Simple",
+            "id": "timer/Stop",
+            "type": 3
+          },
+          {
+            "title": "TimeLeft",
+            "id": "timer/TimeLeft",
+            "type": 3
+          },
+          {
+            "title": "Toggle",
+            "id": "timer/Toggle",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "utf8",
+        "id": "utf8",
+        "type": 1,
+        "children": [
+          {
+            "title": "char",
+            "id": "utf8/char",
+            "type": 3
+          },
+          {
+            "title": "charpattern",
+            "id": "utf8/charpattern",
+            "type": 2
+          },
+          {
+            "title": "codes",
+            "id": "utf8/codes",
+            "type": 3
+          },
+          {
+            "title": "codepoint",
+            "id": "utf8/codepoint",
+            "type": 3
+          },
+          {
+            "title": "len",
+            "id": "utf8/len",
+            "type": 3
+          },
+          {
+            "title": "offset",
+            "id": "utf8/offset",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "util",
+        "id": "util",
+        "type": 1,
+        "children": [
+          {
+            "title": "JSONToTable",
+            "id": "util/JSONToTable",
+            "type": 3
+          },
+          {
+            "title": "TableToJSON",
+            "id": "util/TableToJSON",
+            "type": 3
+          },
+          {
+            "title": "Base64Encode",
+            "id": "util/Base64Encode",
+            "type": 3
+          },
+          {
+            "title": "Base64Decode",
+            "id": "util/Base64Decode",
+            "type": 3
+          },
+          {
+            "title": "Compress",
+            "id": "util/Compress",
+            "type": 3
+          },
+          {
+            "title": "Decompress",
+            "id": "util/Decompress",
+            "type": 3
+          },
+          {
+            "title": "CRC",
+            "id": "util/CRC",
+            "type": 3
+          },
+          {
+            "title": "MD5",
+            "id": "util/MD5",
+            "type": 3
+          },
+          {
+            "title": "SHA1",
+            "id": "util/SHA1",
+            "type": 3
+          },
+          {
+            "title": "SHA256",
+            "id": "util/SHA256",
+            "type": 3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Globals",
+    "icon": "",
+    "entries": [
+      {
+        "title": "assert",
+        "id": "assert",
+        "type": 3
+      },
+      {
+        "title": "collectgarbage",
+        "id": "collectgarbage",
+        "type": 3
+      },
+      {
+        "title": "dofile",
+        "id": "dofile",
+        "type": 3
+      },
+      {
+        "title": "error",
+        "id": "error",
+        "type": 3
+      },
+      {
+        "title": "_G",
+        "id": "_g",
+        "type": 2
+      },
+      {
+        "title": "getfenv",
+        "id": "getfenv",
+        "type": 3
+      },
+      {
+        "title": "getmetatable",
+        "id": "getmetatable",
+        "type": 3
+      },
+      {
+        "title": "HTTP",
+        "id": "$HTTP",
+        "type": 3
+      },
+      {
+        "title": "ipairs",
+        "id": "ipairs",
+        "type": 3
+      },
+      {
+        "title": "load",
+        "id": "load",
+        "type": 3
+      },
+      {
+        "title": "loadfile",
+        "id": "loadfile",
+        "type": 3
+      },
+      {
+        "title": "loadstring",
+        "id": "loadstring",
+        "type": 3
+      },
+      {
+        "title": "Location",
+        "id": "$Location",
+        "type": 3
+      },
+      {
+        "title": "next",
+        "id": "next",
+        "type": 3
+      },
+      {
+        "title": "pairs",
+        "id": "pairs",
+        "type": 3
+      },
+      {
+        "title": "pcall",
+        "id": "pcall",
+        "type": 3
+      },
+      {
+        "title": "print",
+        "id": "print",
+        "type": 3
+      },
+      {
+        "title": "PrintTable",
+        "id": "ptable",
+        "type": 3
+      },
+      {
+        "title": "rawequal",
+        "id": "rawequal",
+        "type": 3
+      },
+      {
+        "title": "rawget",
+        "id": "rawget",
+        "type": 3
+      },
+      {
+        "title": "rawset",
+        "id": "rawset",
+        "type": 3
+      },
+      {
+        "title": "select",
+        "id": "select",
+        "type": 3
+      },
+      {
+        "title": "setfenv",
+        "id": "setfenv",
+        "type": 3
+      },
+      {
+        "title": "setmetatable",
+        "id": "setmetatable",
+        "type": 3
+      },
+      {
+        "title": "tonumber",
+        "id": "tonumber",
+        "type": 3
+      },
+      {
+        "title": "tostring",
+        "id": "tostring",
+        "type": 3
+      },
+      {
+        "title": "type",
+        "id": "type",
+        "type": 3
+      },
+      {
+        "title": "unpack",
+        "id": "unpack",
+        "type": 3
+      },
+      {
+        "title": "Vector",
+        "id": "$Vector",
+        "type": 3
+      },
+      {
+        "title": "_VERSION",
+        "id": "_version",
+        "type": 2
+      },
+      {
+        "title": "xpcall",
+        "id": "xpcall",
+        "type": 3
+      }
+    ]
+  },
+  {
+    "title": "Objects",
+    "icon": "",
+    "entries": [
+      {
+        "title": "Audience",
+        "id": "audience",
+        "type": 1,
+        "children": [
+          {
+            "title": "SendMessage",
+            "id": "audience/SendMessage",
+            "type": 3
+          },
+          {
+            "title": "SendActionBar",
+            "id": "audience/SendActionBar",
+            "type": 3
+          },
+          {
+            "title": "PlaySound",
+            "id": "audience/PlaySound",
+            "type": 3
+          },
+          {
+            "title": "StopSound",
+            "id": "audience/StopSound",
+            "type": 3
+          },
+          {
+            "title": "ShowTitle",
+            "id": "audience/ShowTitle",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "Chunk",
+        "id": "chunk",
+        "type": 1,
+        "children": [
+          {
+            "title": "GetWorld",
+            "id": "chunk/GetWorld",
+            "type": 3
+          },
+          {
+            "title": "GetX",
+            "id": "chunk/GetX",
+            "type": 3
+          },
+          {
+            "title": "GetZ",
+            "id": "chunk/GetZ",
+            "type": 3
+          },
+          {
+            "title": "GetEntities",
+            "id": "chunk/GetEntities",
+            "type": 3
+          },
+          {
+            "title": "IsForceLoaded",
+            "id": "chunk/IsForceLoaded",
+            "type": 3
+          },
+          {
+            "title": "CanSetForceLoaded",
+            "id": "chunk/CanSetForceLoaded",
+            "type": 3
+          },
+          {
+            "title": "SetForceLoaded",
+            "id": "chunk/SetForceLoaded",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "Command",
+        "id": "$command",
+        "type": "1",
+        "children": [
+          {
+            "title": "GetName",
+            "id": "$command/GetName",
+            "type": 3
+          },
+          {
+            "title": "GetDescription",
+            "id": "$command/GetDescription",
+            "type": 3
+          },
+          {
+            "title": "SetDescription",
+            "id": "$command/SetDescription",
+            "type": 3
+          },
+          {
+            "title": "GetArguments",
+            "id": "$command/GetArguments",
+            "type": 3
+          },
+          {
+            "title": "GetArgumentCount",
+            "id": "$command/GetArgumentCount",
+            "type": 3
+          },
+          {
+            "title": "Call",
+            "id": "$command/Call",
+            "type": 3
+          },
+          {
+            "title": "SetExecutor",
+            "id": "$command/SetExecutor",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "CommandSender",
+        "id": "commandsender",
+        "type": 1,
+        "extends": "audience",
+        "children": [
+          {
+            "title": "IsConsole",
+            "id": "commandsender/IsConsole",
+            "type": 3
+          },
+          {
+            "title": "IsPlayer",
+            "id": "commandsender/IsPlayer",
+            "type": 3
+          },
+          {
+            "title": "ToPlayer",
+            "id": "commandsender/ToPlayer",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "Entity",
+        "id": "entity",
+        "type": 1,
+        "children": [
+          {
+            "title": "GetUUID",
+            "id": "entity/GetUUID",
+            "type": 3
+          },
+          {
+            "title": "GetPos",
+            "id": "entity/GetPos",
+            "type": 3
+          },
+          {
+            "title": "GetWorld",
+            "id": "entity/GetWorld",
+            "type": 3
+          },
+          {
+            "title": "GetX",
+            "id": "entity/GetX",
+            "type": 3
+          },
+          {
+            "title": "GetY",
+            "id": "entity/GetY",
+            "type": 3
+          },
+          {
+            "title": "GetZ",
+            "id": "entity/GetZ",
+            "type": 3
+          },
+          {
+            "title": "GetEntID",
+            "id": "entity/GetEntID",
+            "type": 3
+          },
+          {
+            "title": "Remove",
+            "id": "entity/Remove",
+            "type": 3
+          },
+          {
+            "title": "GetType",
+            "id": "entity/GetType",
+            "type": 3
+          },
+          {
+            "title": "Teleport",
+            "id": "entity/TeleportAsync",
+            "type": 3
+          },
+          {
+            "title": "IsPlayer",
+            "id": "entity/IsPlayer",
+            "type": 3
+          },
+          {
+            "title": "HasHealth",
+            "id": "entity/HasHealth",
+            "type": 3
+          },
+          {
+            "title": "Damage",
+            "id": "entity/Damage",
+            "type": 3
+          },
+          {
+            "title": "IsDead",
+            "id": "entity/IsDead",
+            "type": 3
+          },
+          {
+            "title": "GetVelocity",
+            "id": "entity/GetVelocity",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "File",
+        "id": "file",
+        "type": 1,
+        "children": [
+          {
+            "title": "close",
+            "id": "file/close",
+            "type": 3
+          },
+          {
+            "title": "flush",
+            "id": "file/flush",
+            "type": 3
+          },
+          {
+            "title": "lines",
+            "id": "file/lines",
+            "type": 3
+          },
+          {
+            "title": "read",
+            "id": "file/read",
+            "type": 3
+          },
+          {
+            "title": "seek",
+            "id": "file/seek",
+            "type": 3
+          },
+          {
+            "title": "setvbuf",
+            "id": "file/setvbuf",
+            "type": 3
+          },
+          {
+            "title": "write",
+            "id": "file/write",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "Player",
+        "id": "player",
+        "type": 1,
+        "extends": [ "entity", "audience" ],
+        "children": [
+          {
+            "title": "GetName",
+            "id": "player/GetName",
+            "type": 3
+          },
+          {
+            "title": "GetDisplayName",
+            "id": "player/GetDisplayName",
+            "type": 3
+          },
+          {
+            "title": "GetDisplayNameStripped",
+            "id": "player/GetDisplayNameStripped",
+            "type": 3
+          },
+          {
+            "title": "IsOp",
+            "id": "player/IsOp",
+            "type": 3
+          },
+          {
+            "title": "HasPermission",
+            "id": "player/HasPermission",
+            "type": 3
+          },
+          {
+            "title": "Kick",
+            "id": "player/Kick",
+            "type": 3
+          }
+        ]
+      },
+      {
+        "title": "World",
+        "id": "world",
+        "type": 1,
+        "children": [
+          {
+            "title": "GetName",
+            "id": "world/GetName",
+            "type": 3
+          },
+          {
+            "title": "GetEnvironment",
+            "id": "world/GetEnvironment",
+            "type": 3
+          },
+          {
+            "title": "GetUUID",
+            "id": "world/GetUUID",
+            "type": 3
+          },
+          {
+            "title": "GetChunk",
+            "id": "world/GetChunk",
+            "type": 3
+          },
+          {
+            "title": "GetEntities",
+            "id": "world/GetEntities",
+            "type": 3
+          },
+          {
+            "title": "GetPlayers",
+            "id": "world/GetPlayers",
+            "type": 3
+          },
+          {
+            "title": "GetMinHeight",
+            "id": "world/GetMinHeight",
+            "type": 3
+          },
+          {
+            "title": "GetMaxHeight",
+            "id": "world/GetMaxHeight",
+            "type": 3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Enums",
+    "icon": "",
+    "entries": [
+      {
+        "title": "ENV",
+        "id": "env",
+        "type": 4
+      },
+      {
+        "title": "P",
+        "id": "priority",
+        "type": 4
+      },
+      {
+        "title": "AT",
+        "id": "argtype",
+        "type": 4
+      },
+      {
+        "title": "LEVEL",
+        "id": "loglevel",
+        "type": 4
+      }
+    ]
+  }
+]
