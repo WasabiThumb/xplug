@@ -20,7 +20,7 @@ import org.bukkit.entity.Player;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public abstract class SpigotLuaWorld extends LuaWorld {
+public abstract class SpigotLuaWorld implements LuaWorld {
 
     private final World bukkitWorld;
 

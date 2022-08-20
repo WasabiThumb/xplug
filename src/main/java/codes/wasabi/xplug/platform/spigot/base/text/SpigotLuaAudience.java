@@ -17,7 +17,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.title.Title;
 import org.intellij.lang.annotations.Subst;
 
-public class SpigotLuaAudience extends LuaAudience {
+public class SpigotLuaAudience implements LuaAudience {
 
     private static final MiniMessage mm = MiniMessage.miniMessage();
     private final Audience a;

@@ -1320,7 +1320,7 @@
         "title": "Player",
         "id": "player",
         "type": 1,
-        "extends": [ "entity", "audience" ],
+        "extends": [ "entity", "commandsender", "audience" ],
         "children": [
           {
             "title": "GetName",

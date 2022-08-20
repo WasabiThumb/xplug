@@ -14,17 +14,17 @@ import codes.wasabi.xplug.util.func.GetterFunction;
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaTable;
 
-public abstract class LuaCommandSender extends LuaAudience {
+public interface LuaCommandSender extends LuaAudience {
 
-    public abstract boolean isConsole();
+    boolean isConsole();
 
-    public abstract boolean isPlayer();
+    boolean isPlayer();
 
-    public abstract LuaPlayer toPlayer() throws UnsupportedOperationException;
+    LuaPlayer toPlayer() throws UnsupportedOperationException;
 
     @Override
-    public LuaTable getLuaValue() {
-        LuaTable lt = super.getLuaValue();
+    default LuaTable getLuaValue() {
+        LuaTable lt = LuaAudience.super.getLuaValue();
         lt.set("IsConsole", new GetterFunction(this::isConsole));
         lt.set("IsPlayer", new GetterFunction(this::isPlayer));
         lt.set("ToPlayer", new GetterFunction(() -> {

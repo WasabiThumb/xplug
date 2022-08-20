@@ -10,7 +10,7 @@ package codes.wasabi.xplug.struct.command;
 
 import codes.wasabi.xplug.struct.entity.LuaPlayer;
 
-public class LuaVoidCommandSender extends LuaCommandSender {
+public class LuaVoidCommandSender implements LuaCommandSender {
 
     public static LuaVoidCommandSender INSTANCE = new LuaVoidCommandSender();
 

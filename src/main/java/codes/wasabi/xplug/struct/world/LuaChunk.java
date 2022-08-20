@@ -17,38 +17,38 @@ import org.luaj.vm2.LuaValue;
 
 import java.util.Collection;
 
-public abstract class LuaChunk implements LuaValueHolder {
+public interface LuaChunk extends LuaValueHolder {
 
     /**
      * Returns the world that this chunk is in
      * @return A world
      */
-    public abstract LuaWorld getWorld();
+     LuaWorld getWorld();
 
     /**
      * Gets the X coordinate of this chunk
      * @return The X coordinate
      */
-    public abstract int getX();
+     int getX();
 
     /**
      * Gets the Z coordinate of this chunk
      * @return The Z coordinate
      */
-    public abstract int getZ();
+     int getZ();
 
-    public abstract Collection<LuaEntity> getEntities();
+     Collection<LuaEntity> getEntities();
 
-    public abstract boolean isLoaded();
+     boolean isLoaded();
 
-    public abstract boolean isForceLoaded();
+     boolean isForceLoaded();
 
-    public abstract boolean canSetForceLoaded();
+     boolean canSetForceLoaded();
 
-    public abstract void setForceLoaded(boolean forceLoaded);
+     void setForceLoaded(boolean forceLoaded);
 
     @Override
-    public LuaValue getLuaValue() {
+    default LuaValue getLuaValue() {
         LuaTable lt = new LuaTable();
         lt.set("GetWorld", new GetterFunction(this::getWorld));
         lt.set("GetX", new GetterFunction(this::getX));

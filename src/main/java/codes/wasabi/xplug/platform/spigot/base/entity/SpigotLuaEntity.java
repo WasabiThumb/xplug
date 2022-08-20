@@ -16,7 +16,6 @@ import codes.wasabi.xplug.struct.world.LuaWorld;
 import io.papermc.lib.PaperLib;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 
 public interface SpigotLuaEntity extends LuaEntity {
 
@@ -75,16 +74,6 @@ public interface SpigotLuaEntity extends LuaEntity {
     @Override
     default void teleportAsync(LuaLocation location) {
         PaperLib.teleportAsync(getBukkitEntity(), SpigotLuaToolkit.getAdapter().convertLocation(location));
-    }
-
-    @Override
-    default boolean isPlayer() {
-        return (getBukkitEntity() instanceof Player);
-    }
-
-    @Override
-    default boolean hasHealth() {
-        return (getBukkitEntity() instanceof Damageable);
     }
 
     @Override

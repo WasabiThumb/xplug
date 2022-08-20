@@ -8,7 +8,7 @@ package codes.wasabi.xplug.struct.entity;
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
-import codes.wasabi.xplug.struct.text.LuaAudience;
+import codes.wasabi.xplug.struct.command.LuaCommandSender;
 import codes.wasabi.xplug.util.func.GetterFunction;
 import codes.wasabi.xplug.util.func.OneArgMetaFunction;
 import org.jetbrains.annotations.NotNull;
@@ -16,23 +16,23 @@ import org.jetbrains.annotations.Nullable;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 
-public abstract class LuaPlayer extends LuaAudience implements LuaEntity {
+public interface LuaPlayer extends LuaEntity, LuaCommandSender {
 
-    public abstract @NotNull String getName();
+    @NotNull String getName();
 
-    public abstract @Nullable String getDisplayName();
+    @Nullable String getDisplayName();
 
-    public abstract @Nullable String getDisplayNameStripped();
+    @Nullable String getDisplayNameStripped();
 
-    public abstract boolean isOp();
+    boolean isOp();
 
-    public abstract boolean hasPermission(String permission);
+    boolean hasPermission(String permission);
 
-    public abstract void kick(@Nullable String message);
+    void kick(@Nullable String message);
 
     @Override
-    public LuaTable getLuaValue() {
-        LuaTable lt = super.getLuaValue();
+    default LuaTable getLuaValue() {
+        LuaTable lt = LuaCommandSender.super.getLuaValue();
         LuaEntity.fillMeta(lt, this);
         lt.set("GetName", new GetterFunction(this::getName));
         lt.set("GetDisplayName", new GetterFunction(this::getDisplayName));
@@ -59,12 +59,12 @@ public abstract class LuaPlayer extends LuaAudience implements LuaEntity {
     }
 
     @Override
-    public boolean isPlayer() {
+    default boolean isPlayer() {
         return true;
     }
 
     @Override
-    public boolean hasHealth() {
+    default boolean hasHealth() {
         return true;
     }
 

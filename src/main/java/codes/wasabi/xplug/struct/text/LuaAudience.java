@@ -13,22 +13,22 @@ import codes.wasabi.xplug.util.func.OneArgMetaFunction;
 import codes.wasabi.xplug.util.func.VarArgMetaFunction;
 import org.luaj.vm2.*;
 
-public abstract class LuaAudience implements LuaValueHolder {
+public interface LuaAudience extends LuaValueHolder {
 
-    public abstract void sendMessage(String message);
+     void sendMessage(String message);
 
-    public abstract void sendActionBar(String actionBar);
+     void sendActionBar(String actionBar);
 
-    public abstract void playSound(String soundName) throws IllegalArgumentException;
+     void playSound(String soundName) throws IllegalArgumentException;
 
-    public abstract void playSound(String soundName, double x, double y, double z) throws IllegalArgumentException;
+     void playSound(String soundName, double x, double y, double z) throws IllegalArgumentException;
 
-    public abstract void stopSound(String soundName) throws IllegalArgumentException;
+     void stopSound(String soundName) throws IllegalArgumentException;
 
-    public abstract void showTitle(String title, String subtitle);
+     void showTitle(String title, String subtitle);
 
     @Override
-    public LuaTable getLuaValue() {
+    default LuaTable getLuaValue() {
         LuaTable lt = new LuaTable();
         lt.set("SendMessage", new OneArgMetaFunction() {
             @Override

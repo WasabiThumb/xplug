@@ -8,29 +8,24 @@ package codes.wasabi.xplug.platform.spigot.base.entity;
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
-import codes.wasabi.xplug.XPlug;
+import codes.wasabi.xplug.platform.spigot.base.command.SpigotLuaCommandSender;
 import codes.wasabi.xplug.struct.entity.LuaPlayer;
-import net.kyori.adventure.key.InvalidKeyException;
-import net.kyori.adventure.key.Key;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
-import net.kyori.adventure.title.Title;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.intellij.lang.annotations.Subst;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.luaj.vm2.LuaTable;
 
-public class SpigotLuaPlayer extends LuaPlayer implements SpigotLuaEntity {
+public class SpigotLuaPlayer extends SpigotLuaCommandSender implements LuaPlayer, SpigotLuaEntity {
 
     private final Player entity;
-    private final BukkitAudiences av = XPlug.getAdventure();
     private final MiniMessage mm = MiniMessage.miniMessage();
     public SpigotLuaPlayer(Player entity) {
+        super(entity);
         this.entity = entity;
     }
 
@@ -78,43 +73,18 @@ public class SpigotLuaPlayer extends LuaPlayer implements SpigotLuaEntity {
     }
 
     @Override
-    public void sendMessage(String message) {
-        av.player(entity).sendMessage(mm.deserialize(message));
+    public boolean isConsole() {
+        return false;
     }
 
     @Override
-    public void sendActionBar(String actionBar) {
-        av.player(entity).sendActionBar(mm.deserialize(actionBar));
-    }
-
-    private Sound parse(@Subst("minecraft:ui.button.click") String name) {
-        Key key;
-        try {
-            key = Key.key(name);
-        } catch (InvalidKeyException e) {
-            throw new IllegalArgumentException();
-        }
-        return Sound.sound(key, Sound.Source.MASTER, 1f, 1f);
+    public LuaPlayer toPlayer() throws UnsupportedOperationException {
+        return this;
     }
 
     @Override
-    public void playSound(String soundName) throws IllegalArgumentException {
-        av.player(entity).playSound(parse(soundName));
-    }
-
-    @Override
-    public void playSound(String soundName, double x, double y, double z) throws IllegalArgumentException {
-        av.player(entity).playSound(parse(soundName), x, y, z);
-    }
-
-    @Override
-    public void stopSound(String soundName) throws IllegalArgumentException {
-        av.player(entity).stopSound(parse(soundName));
-    }
-
-    @Override
-    public void showTitle(String title, String subtitle) {
-        av.player(entity).showTitle(Title.title(mm.deserialize(title), mm.deserialize(subtitle)));
+    public LuaTable getLuaValue() {
+        return LuaPlayer.super.getLuaValue();
     }
 
 }

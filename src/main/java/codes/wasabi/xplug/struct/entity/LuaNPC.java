@@ -10,17 +10,17 @@ package codes.wasabi.xplug.struct.entity;
 
 import org.luaj.vm2.LuaTable;
 
-public abstract class LuaNPC implements LuaEntity {
+public interface LuaNPC extends LuaEntity {
 
     @Override
-    public LuaTable getLuaValue() {
+    default LuaTable getLuaValue() {
         LuaTable lt = new LuaTable();
         LuaEntity.fillMeta(lt, this);
         return lt;
     }
 
     @Override
-    public boolean isPlayer() {
+    default boolean isPlayer() {
         return false;
     }
 

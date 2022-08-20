@@ -9,9 +9,10 @@ package codes.wasabi.xplug.platform.spigot.base.entity;
 */
 
 import codes.wasabi.xplug.struct.entity.LuaNPC;
+import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 
-public class SpigotLuaNPC extends LuaNPC implements SpigotLuaEntity {
+public class SpigotLuaNPC implements LuaNPC, SpigotLuaEntity {
 
     private final Entity entity;
     public SpigotLuaNPC(Entity entity) {
@@ -21,6 +22,16 @@ public class SpigotLuaNPC extends LuaNPC implements SpigotLuaEntity {
     @Override
     public Entity getBukkitEntity() {
         return entity;
+    }
+
+    @Override
+    public boolean isPlayer() {
+        return false;
+    }
+
+    @Override
+    public boolean hasHealth() {
+        return (entity instanceof Damageable);
     }
 
 }

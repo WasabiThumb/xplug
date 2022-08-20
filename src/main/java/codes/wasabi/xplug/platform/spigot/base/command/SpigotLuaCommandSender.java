@@ -10,6 +10,7 @@ package codes.wasabi.xplug.platform.spigot.base.command;
 
 import codes.wasabi.xplug.XPlug;
 import codes.wasabi.xplug.platform.spigot.base.SpigotLuaToolkit;
+import codes.wasabi.xplug.platform.spigot.base.entity.SpigotLuaPlayer;
 import codes.wasabi.xplug.struct.command.LuaCommandSender;
 import codes.wasabi.xplug.struct.entity.LuaPlayer;
 import net.kyori.adventure.audience.Audience;
@@ -23,7 +24,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.intellij.lang.annotations.Subst;
 
-public class SpigotLuaCommandSender extends LuaCommandSender {
+public class SpigotLuaCommandSender implements LuaCommandSender {
 
     private final CommandSender cs;
     private final Audience a;
@@ -93,6 +94,9 @@ public class SpigotLuaCommandSender extends LuaCommandSender {
 
     @Override
     public LuaPlayer toPlayer() throws UnsupportedOperationException {
+        if (this instanceof SpigotLuaPlayer) {
+            return ((SpigotLuaPlayer) this);
+        }
         if (cs instanceof Player) {
             return SpigotLuaToolkit.getAdapter().convertPlayer((Player) cs);
         } else {

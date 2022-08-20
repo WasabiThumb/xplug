@@ -21,25 +21,25 @@ import org.luaj.vm2.LuaValue;
 
 import java.util.Collection;
 
-public abstract class LuaWorld implements LuaValueHolder {
+public interface LuaWorld extends LuaValueHolder {
 
     /**
      * Get the name of the world
      * @return World name
      */
-    public abstract String getName();
+     String getName();
 
     /**
      * Get the environment of the world
      * @return An ENV enum index
      */
-    public abstract int getEnvironment();
+     int getEnvironment();
 
     /**
      * Gets the universally unique identifier for this world
      * @return The UUID
      */
-    public abstract String getUUID();
+     String getUUID();
 
     /**
      * Gets a chunk in the world by its X and Z coordinates
@@ -47,17 +47,17 @@ public abstract class LuaWorld implements LuaValueHolder {
      * @param z The Z coordinate
      * @return The chunk
      */
-    public abstract LuaChunk getChunk(int x, int z);
+     LuaChunk getChunk(int x, int z);
 
-    public abstract Collection<LuaEntity> getEntities();
+     Collection<LuaEntity> getEntities();
 
-    public abstract Collection<LuaPlayer> getPlayers();
+     Collection<LuaPlayer> getPlayers();
 
-    public abstract int getMinHeight();
+     int getMinHeight();
 
-    public abstract int getMaxHeight();
+     int getMaxHeight();
 
-    public static boolean worldEquals(LuaWorld a, LuaWorld b) {
+    static boolean worldEquals(LuaWorld a, LuaWorld b) {
         if (a == null) {
             return b == null;
         } else {
@@ -66,12 +66,8 @@ public abstract class LuaWorld implements LuaValueHolder {
         }
     }
 
-    public boolean worldEquals(LuaWorld other) {
-        return worldEquals(this, other);
-    }
-
     @Override
-    public LuaValue getLuaValue() {
+    default LuaValue getLuaValue() {
         LuaTable lt = new LuaTable();
         lt.set("GetName", new GetterFunction(this::getName));
         lt.set("GetEnvironment", new GetterFunction(this::getEnvironment));
@@ -89,7 +85,7 @@ public abstract class LuaWorld implements LuaValueHolder {
         lt.set("Equals", new OneArgMetaFunction() {
             @Override
             protected LuaValue call(LuaTable self, LuaValue arg) {
-                return LuaValue.valueOf(worldEquals(XPlug.getToolkit().getWorld(LuaBridge.extractName(arg))));
+                return LuaValue.valueOf(worldEquals(LuaWorld.this, XPlug.getToolkit().getWorld(LuaBridge.extractName(arg))));
             }
         });
         return lt;

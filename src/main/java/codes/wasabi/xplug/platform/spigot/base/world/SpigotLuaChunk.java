@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public abstract class SpigotLuaChunk extends LuaChunk {
+public abstract class SpigotLuaChunk implements LuaChunk {
 
     private final Chunk bukkitChunk;
 

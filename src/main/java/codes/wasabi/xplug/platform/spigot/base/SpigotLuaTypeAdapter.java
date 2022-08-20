@@ -16,11 +16,9 @@ import codes.wasabi.xplug.platform.spigot.base.text.SpigotLuaAudience;
 import codes.wasabi.xplug.platform.spigot.base.world.SpigotLuaChunk;
 import codes.wasabi.xplug.platform.spigot.base.world.SpigotLuaWorld;
 import codes.wasabi.xplug.struct.command.LuaCommandSender;
-import codes.wasabi.xplug.struct.command.LuaVoidCommandSender;
 import codes.wasabi.xplug.struct.data.LuaLocation;
 import codes.wasabi.xplug.struct.data.LuaVector;
 import codes.wasabi.xplug.struct.entity.LuaEntity;
-import codes.wasabi.xplug.struct.entity.LuaPlayer;
 import codes.wasabi.xplug.struct.world.LuaChunk;
 import codes.wasabi.xplug.struct.world.LuaWorld;
 import codes.wasabi.xplug.util.LuaBridge;
@@ -29,16 +27,11 @@ import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.permissions.Permission;
-import org.bukkit.permissions.PermissionAttachment;
-import org.bukkit.permissions.PermissionAttachmentInfo;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.luaj.vm2.LuaValue;
 
-import java.util.Set;
 import java.util.UUID;
 
 public abstract class SpigotLuaTypeAdapter {
@@ -122,7 +115,7 @@ public abstract class SpigotLuaTypeAdapter {
         return null;
     }
 
-    public @NotNull LuaPlayer convertPlayer(@NotNull Player ply) {
+    public @NotNull SpigotLuaPlayer convertPlayer(@NotNull Player ply) {
         return new SpigotLuaPlayer(ply);
     }
 
@@ -145,15 +138,29 @@ public abstract class SpigotLuaTypeAdapter {
     }
 
     public @NotNull SpigotLuaCommandSender convertCommandSender(@NotNull CommandSender sender) {
-        return new SpigotLuaCommandSender(sender);
+        if (sender instanceof Player) {
+            return convertPlayer((Player) sender);
+        } else {
+            return new SpigotLuaCommandSender(sender);
+        }
     }
 
     public @Nullable CommandSender convertCommandSender(@NotNull LuaCommandSender sender) {
-        if (sender instanceof SpigotLuaCommandSender) {
+        if (sender instanceof SpigotLuaPlayer) {
+            return ((SpigotLuaPlayer) sender).getBukkitPlayer();
+        } else if (sender instanceof SpigotLuaCommandSender) {
             return ((SpigotLuaCommandSender) sender).getBukkitCommandSender();
         } else {
             if (sender.isConsole()) {
                 return Bukkit.getConsoleSender();
+            } else if (sender.isPlayer()) {
+                UUID uuid;
+                try {
+                    uuid = UUID.fromString(sender.toPlayer().getUUID());
+                } catch (IllegalArgumentException e) {
+                    return null;
+                }
+                return Bukkit.getPlayer(uuid);
             }
         }
         return null;
