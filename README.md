@@ -1,9 +1,14 @@
-# XPlug
-**A LUA Platform for Spigot**\
-Version 1.0.0-RC1\
-Supports Minecraft 1.8 to 1.19.1
+# <!-- XPlug --> <img src="https://wasabicodes.xyz/cdn/b1c680ff86f27f18d4c896f3af5049e5/banner.png" alt="XPlug" style="height: 5em">
+**A LUA Platform for Spigot**
 
-## THIS PROJECT IS IN HEAVY DEVELOPMENT! DO NOT EXPECT IT TO RESEMBLE A FINISHED PRODUCT
+![Build Status](https://img.shields.io/github/workflow/status/WasabiThumb/xplug/Java%20CI%20with%20Maven?logo=github&style=for-the-badge)
+![Download Count](https://img.shields.io/github/downloads/WasabiThumb/xclaim/total?label=DOWNLOADS&logo=github&style=for-the-badge)
+![Issues](https://img.shields.io/github/issues/WasabiThumb/xplug?style=for-the-badge&logo=github)\
+![License](https://img.shields.io/github/license/WasabiThumb/xplug?style=for-the-badge)
+![Release](https://img.shields.io/github/v/release/WasabiThumb/xplug?include_prereleases&style=for-the-badge)
+![Minecraft Version](https://img.shields.io/badge/MINECRAFT-1.8%20--%201.19-informational?style=for-the-badge)
+
+<strong>THIS PROJECT IS IN HEAVY DEVELOPMENT! DO NOT EXPECT IT TO RESEMBLE A FINISHED PRODUCT</strong>
 
 ## Usage
 When the plugin starts for the first time, a folder called ``scripts`` in ``plugins/XPlug/`` will be filled with the [provided sample scripts](https://github.com/WasabiThumb/xplug/tree/master/src/main/resources/examples).\
