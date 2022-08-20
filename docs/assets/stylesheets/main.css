@@ -223,6 +223,27 @@ main > h2 {
     margin-bottom: 0.2em;
 }
 
+main > a {
+    color: #067c62;
+    text-decoration: underline;
+    text-decoration-color: rgba(6, 124, 98, 0);
+    transition: text-decoration-color 100ms ease-in-out;
+}
+
+main > a:hover {
+    text-decoration-color: rgba(6, 124, 98, 100);
+}
+
+main > a::after {
+    content: '';
+    display: inline-block;
+    height: 0.6em;
+    width: 0.6em;
+    margin-left: 0.1em;
+    background-image: url("/xplug/assets/images/link.svg");
+    background-size: cover;
+}
+
 main > .codeContainer {
     font-size: var(--main-code-text);
     margin-top: 0.5em;

@@ -96,6 +96,17 @@ const mdparse = ((md, out, setTitle) => {
             create("name", name);
             create("desc", description);
             out.appendChild(container);
+        } else if (child.nodeName === "a") {
+            const anchor = document.createElement("a");
+            anchor.innerText = child.textContent;
+            if (child.attributes) {
+                let { attributes } = child;
+                for (let i=0; i < attributes.length; i++) {
+                    let attr = attributes.item(i);
+                    anchor.setAttribute(attr.localName, attr.value);
+                }
+            }
+            out.appendChild(anchor);
         }
         if (clearVar) lastIndex = 0;
     }
