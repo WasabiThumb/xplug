@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<script id="body" type="text/plain">
+<h1>Getting Started</h1>
+<h2>Installing the plugin</h2>
+1. Download the latest release <a href="https://github.com/WasabiThumb/xplug/releases/latest" target="_blank">from GitHub</a> or SpigotMC. Do not use the JAR labelled "original" unless you know what you are doing.
+
+
+
+2. Place the JAR into the "plugins" directory of your server. Run the server at least once if you want to modify configuration and scripts.
+
+
+
+<h2>Using the plugin</h2>
+Use /xplug run [name] to run a LUA project, or /xplug exec [code] to run a line of custom LUA code. The plugin ships with <a href="https://github.com/WasabiThumb/xplug#sample-scripts" target="_blank">a few sample projects</a> you can run.
+A full list of commands can be found <a href="https://github.com/WasabiThumb/xplug#commands" target="_blank">on GitHub</a>.
+
+
+
+Example:
+Tells you the number of players online
+<code lang="lua">
+/xplug exec return #server.GetPlayers()
+</code>
+
+
+
+<h2>Creating your own LUA project</h2>
+To make a new project, enter "/plugins/XPlug/" from your server's root directory. Then, enter "scripts" if you want your project to be a normal callable routine (e.g. /xclaim run project) or "autorun" if you want it to start directly after the plugin is enabled.
+
+
+
+From here, either create a .lua file with the name of your project, or a folder with the name of your project and an index.lua inside of that folder. The index.lua is called when you run your project, and having it in a folder is useful if your project contains multiple LUA files (not yet properly supported but planned).
+
+
+
+Then you can start coding! This can be done even when the server is running since LUA projects are interpreted when called. Check out the <a href="/xplug/lua-api">LUA API Overview</a> for info on useful libraries, hooks, etc.
+
+
+
+<h2>Adding to your plugin</h2>
+XPlug is not currently hosted on any Maven repository, so you will have to add the JAR as a system dependency. Then, refer to the <a href="/xplug/java-api">Java API Overview</a> to get started.
+</script>
+<script src="/xplug/assets/javascript/setupPage.min.js"></script>
