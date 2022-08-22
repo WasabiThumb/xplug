@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<script id="body" type="text/plain">
+<h1>bit32.extract</h1>
+
+
+
+<h2>Arguments</h2>
+<var name="n" description="The input number" />
+<var name="field" description="The index of the starting bit" />
+<var name="width" description="The number of bits to operate on (defaults to 1)" />
+<h2>Usage</h2>
+Returns the unsigned number formed by the bits field to field + width - 1 from n. Bits are numbered from 0 (least significant) to 31 (most significant). All accessed bits must be in the range [0, 31]. 
+
+
+
+<h2>Examples</h2>
+<code lang="lua">
+local a = 41 -- 101001
+bit32.extract(a, 4, 2) -- 2 (10)
+</code>
+</script>
+<script src="/xplug/assets/javascript/setupPage.min.js"></script> 

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<script id="body" type="text/plain">
+<h1>bit32.lshift</h1>
+
+
+
+<h2>Arguments</h2>
+<var name="x" description="The number to shift" />
+<var name="disp" description="The number of bits to shift to the left" />
+<h2>Usage</h2>
+Returns the number x shifted disp bits to the left. The number disp may be any representable integer. Negative displacements shift to the right. In any direction, vacant bits are filled with zeros. In particular, displacements with absolute values higher than 31 result in zero (all bits are shifted out). 
+
+
+
+<h2>Examples</h2>
+<code lang="lua">
+local a = 3 -- 0011
+bit32.lshift(a, 2) -- 12 (1100)
+bit32.lshift(a, -2) -- 0 (all bits shifted out)
+</code>
+</script>
+<script src="/xplug/assets/javascript/setupPage.min.js"></script> 

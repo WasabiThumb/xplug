@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<script id="body" type="text/plain">
+<h1>bit32.btest</h1>
+
+
+
+<h2>Arguments</h2>
+<var index="*" name="operands" description="Vararg of operands" />
+<h2>Usage</h2>
+Returns a boolean signifying whether the bitwise and (<a href="/xplug/bit32/band">bit32.band</a>) of its operands is different from zero
+
+
+
+<h2>Examples</h2>
+<code lang="lua">
+local aflag = 1 -- 001
+local bflag = 2 -- 010
+local cflag = 4 -- 100
+local ac = bit32.bor(aflag, cflag)
+bit32.btest(ac, aflag) -- true
+bit32.btest(ac, bflag) -- false
+bit32.btest(ac, cflag) -- true
+</code>
+</script>
+<script src="/xplug/assets/javascript/setupPage.min.js"></script> 

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<script id="body" type="text/plain">
+<h1>bit32.lrotate</h1>
+
+
+
+<h2>Arguments</h2>
+<var name="x" description="The number to rotate" />
+<var name="disp" description="The number of bits to rotate to the left" />
+<h2>Usage</h2>
+Returns the number x rotated disp bits to the left. The number disp may be any representable integer. Negative displacements rotate to the right.
+
+
+
+<h2>Examples</h2>
+<code lang="lua">
+local a = 3 -- 0011
+bit32.lrotate(a, 2) -- 12 (1100)
+bit32.lrotate(a, -2) -- 3221225472 (11000000000000000000000000000000)
+</code>
+</script>
+<script src="/xplug/assets/javascript/setupPage.min.js"></script> 

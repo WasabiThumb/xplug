@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<script id="body" type="text/plain">
+<h1>bit32.replace</h1>
+
+
+
+<h2>Arguments</h2>
+<var name="n" description="The input number" />
+<var name="v" description="The value to insert" />
+<var name="field" description="The index of the starting bit" />
+<var name="width" description="The number of bits to operate on (defaults to 1)" />
+<h2>Usage</h2>
+Returns a copy of n with the bits field to field + width - 1 replaced by the value v. See <a href="/xplug/bit32/extract">bit32.extract</a> for details about field and width. 
+
+
+
+<h2>Examples</h2>
+<code lang="lua">
+local a = 41 -- 101001
+bit32.replace(a, 3, 4, 2) -- 57 (111001)
+</code>
+</script>
+<script src="/xplug/assets/javascript/setupPage.min.js"></script> 
