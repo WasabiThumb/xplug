@@ -139,11 +139,6 @@
             "type": 3
           },
           {
-            "title": "isyieldable",
-            "id": "coroutine/isyieldable",
-            "type": 3
-          },
-          {
             "title": "resume",
             "id": "coroutine/resume",
             "type": 3
@@ -347,11 +342,6 @@
             "type": 3
           },
           {
-            "title": "maxinteger",
-            "id": "math/maxinteger",
-            "type": 2
-          },
-          {
             "title": "modf",
             "id": "math/modf",
             "type": 3
@@ -389,21 +379,6 @@
           {
             "title": "tan",
             "id": "math/tan",
-            "type": 3
-          },
-          {
-            "title": "tointeger",
-            "id": "math/tointeger",
-            "type": 3
-          },
-          {
-            "title": "type",
-            "id": "math/type",
-            "type": 3
-          },
-          {
-            "title": "ult",
-            "id": "math/ult",
             "type": 3
           }
         ]
@@ -449,11 +424,6 @@
             "type": 3
           },
           {
-            "title": "rename",
-            "id": "os/rename",
-            "type": 3
-          },
-          {
             "title": "setlocale",
             "id": "os/setlocale",
             "type": 3
@@ -461,11 +431,6 @@
           {
             "title": "time",
             "id": "os/time",
-            "type": 3
-          },
-          {
-            "title": "tmpname",
-            "id": "os/tmpname",
             "type": 3
           }
         ]
@@ -647,16 +612,6 @@
             "type": 3
           },
           {
-            "title": "pack",
-            "id": "string/pack",
-            "type": 3
-          },
-          {
-            "title": "packsize",
-            "id": "string/packsize",
-            "type": 3
-          },
-          {
             "title": "rep",
             "id": "string/rep",
             "type": 3
@@ -669,11 +624,6 @@
           {
             "title": "sub",
             "id": "string/sub",
-            "type": 3
-          },
-          {
-            "title": "unpack",
-            "id": "string/unpack",
             "type": 3
           },
           {
@@ -696,11 +646,6 @@
           {
             "title": "insert",
             "id": "table/insert",
-            "type": 3
-          },
-          {
-            "title": "move",
-            "id": "table/move",
             "type": 3
           },
           {
@@ -788,43 +733,6 @@
           {
             "title": "Toggle",
             "id": "timer/Toggle",
-            "type": 3
-          }
-        ]
-      },
-      {
-        "title": "utf8",
-        "id": "utf8",
-        "type": 1,
-        "children": [
-          {
-            "title": "char",
-            "id": "utf8/char",
-            "type": 3
-          },
-          {
-            "title": "charpattern",
-            "id": "utf8/charpattern",
-            "type": 2
-          },
-          {
-            "title": "codes",
-            "id": "utf8/codes",
-            "type": 3
-          },
-          {
-            "title": "codepoint",
-            "id": "utf8/codepoint",
-            "type": 3
-          },
-          {
-            "title": "len",
-            "id": "utf8/len",
-            "type": 3
-          },
-          {
-            "title": "offset",
-            "id": "utf8/offset",
             "type": 3
           }
         ]
@@ -918,11 +826,6 @@
         "type": 2
       },
       {
-        "title": "getfenv",
-        "id": "getfenv",
-        "type": 3
-      },
-      {
         "title": "getmetatable",
         "id": "getmetatable",
         "type": 3
@@ -945,11 +848,6 @@
       {
         "title": "loadfile",
         "id": "loadfile",
-        "type": 3
-      },
-      {
-        "title": "loadstring",
-        "id": "loadstring",
         "type": 3
       },
       {
@@ -1003,11 +901,6 @@
         "type": 3
       },
       {
-        "title": "setfenv",
-        "id": "setfenv",
-        "type": 3
-      },
-      {
         "title": "setmetatable",
         "id": "setmetatable",
         "type": 3
@@ -1025,11 +918,6 @@
       {
         "title": "type",
         "id": "type",
-        "type": 3
-      },
-      {
-        "title": "unpack",
-        "id": "unpack",
         "type": 3
       },
       {
