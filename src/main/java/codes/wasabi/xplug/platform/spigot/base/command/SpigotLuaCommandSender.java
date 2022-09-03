@@ -13,6 +13,7 @@ import codes.wasabi.xplug.platform.spigot.base.SpigotLuaToolkit;
 import codes.wasabi.xplug.platform.spigot.base.entity.SpigotLuaPlayer;
 import codes.wasabi.xplug.struct.command.LuaCommandSender;
 import codes.wasabi.xplug.struct.entity.LuaPlayer;
+import codes.wasabi.xplug.util.func.GetterFunction;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.key.InvalidKeyException;
 import net.kyori.adventure.key.Key;
@@ -23,6 +24,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.intellij.lang.annotations.Subst;
+import org.luaj.vm2.LuaTable;
+import org.luaj.vm2.LuaValue;
 
 public class SpigotLuaCommandSender implements LuaCommandSender {
 
@@ -104,4 +107,10 @@ public class SpigotLuaCommandSender implements LuaCommandSender {
         }
     }
 
+    @Override
+    public LuaTable getLuaValue() {
+        LuaTable lt = LuaCommandSender.super.getLuaValue();
+        lt.set("GetHandle", new GetterFunction(() -> LuaValue.userdataOf(cs)));
+        return lt;
+    }
 }

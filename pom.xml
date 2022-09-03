@@ -6,7 +6,7 @@
 
     <groupId>codes.wasabi</groupId>
     <artifactId>xplug</artifactId>
-    <version>1.0.0-RC1</version>
+    <version>1.0.0-RC2</version>
     <packaging>jar</packaging>
 
     <name>XPlug</name>
@@ -56,7 +56,7 @@
                                     <shadedPattern>codes.wasabi.xplug.lib.adventure</shadedPattern>
                                 </relocation>
                                 <relocation>
-                                    <pattern>xyz.zenondevs.particle</pattern>
+                                    <pattern>xyz.xenondevs.particle</pattern>
                                     <shadedPattern>codes.wasabi.xplug.lib.particle</shadedPattern>
                                 </relocation>
                                 <relocation>
@@ -70,6 +70,10 @@
                                 <relocation>
                                     <pattern>io.papermc.lib</pattern>
                                     <shadedPattern>codes.wasabi.xplug.lib.paperlib</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>xyz.wasabicodes.matlib</pattern>
+                                    <shadedPattern>codes.wasabi.xplug.lib.matlib</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
@@ -161,6 +165,12 @@
             <groupId>io.papermc</groupId>
             <artifactId>paperlib</artifactId>
             <version>1.0.7</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>xyz.wasabicodes</groupId>
+            <artifactId>matlib</artifactId>
+            <version>1.1.2</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

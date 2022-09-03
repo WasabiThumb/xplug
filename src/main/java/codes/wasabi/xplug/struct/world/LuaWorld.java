@@ -10,11 +10,13 @@ package codes.wasabi.xplug.struct.world;
 
 import codes.wasabi.xplug.XPlug;
 import codes.wasabi.xplug.struct.LuaValueHolder;
+import codes.wasabi.xplug.struct.block.LuaBlock;
 import codes.wasabi.xplug.struct.entity.LuaEntity;
 import codes.wasabi.xplug.struct.entity.LuaPlayer;
 import codes.wasabi.xplug.util.LuaBridge;
 import codes.wasabi.xplug.util.func.GetterFunction;
 import codes.wasabi.xplug.util.func.OneArgMetaFunction;
+import codes.wasabi.xplug.util.func.ThreeArgMetaFunction;
 import codes.wasabi.xplug.util.func.TwoArgMetaFunction;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
@@ -57,6 +59,8 @@ public interface LuaWorld extends LuaValueHolder {
 
      int getMaxHeight();
 
+     LuaBlock getBlock(int x, int y, int z);
+
     static boolean worldEquals(LuaWorld a, LuaWorld b) {
         if (a == null) {
             return b == null;
@@ -67,7 +71,7 @@ public interface LuaWorld extends LuaValueHolder {
     }
 
     @Override
-    default LuaValue getLuaValue() {
+    default LuaTable getLuaValue() {
         LuaTable lt = new LuaTable();
         lt.set("GetName", new GetterFunction(this::getName));
         lt.set("GetEnvironment", new GetterFunction(this::getEnvironment));
@@ -86,6 +90,16 @@ public interface LuaWorld extends LuaValueHolder {
             @Override
             protected LuaValue call(LuaTable self, LuaValue arg) {
                 return LuaValue.valueOf(worldEquals(LuaWorld.this, XPlug.getToolkit().getWorld(LuaBridge.extractName(arg))));
+            }
+        });
+        lt.set("GetBlock", new ThreeArgMetaFunction() {
+            @Override
+            protected LuaValue call(LuaTable self, LuaValue arg1, LuaValue arg2, LuaValue arg3) {
+                int x = arg1.toint();
+                int y = arg2.toint();
+                int z = arg3.toint();
+                LuaBlock lb = getBlock(x, y, z);
+                return lb.getLuaValue();
             }
         });
         return lt;

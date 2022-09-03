@@ -8,17 +8,27 @@ package codes.wasabi.xplug.platform.spigot.base;
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
+import xyz.wasabicodes.matlib.MaterialLib;
+import xyz.wasabicodes.matlib.struct.MetaMaterial;
 import codes.wasabi.xplug.XPlug;
 import codes.wasabi.xplug.platform.spigot.base.command.SpigotLuaCommandManager;
 import codes.wasabi.xplug.platform.spigot.base.command.SpigotLuaCommandSender;
 import codes.wasabi.xplug.platform.spigot.base.entity.SpigotLuaPlayer;
+import codes.wasabi.xplug.platform.spigot.base.item.SpigotLuaItemStack;
+import codes.wasabi.xplug.platform.spigot.base.material.SpigotLuaMaterial;
 import codes.wasabi.xplug.struct.LuaToolkit;
 import codes.wasabi.xplug.struct.entity.LuaPlayer;
+import codes.wasabi.xplug.struct.item.LuaItemStack;
+import codes.wasabi.xplug.struct.material.LuaMaterial;
 import codes.wasabi.xplug.struct.world.LuaWorld;
+import codes.wasabi.xplug.util.LuaBridge;
 import io.papermc.lib.PaperLib;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.luaj.vm2.LuaValue;
 
 import java.util.Collection;
 import java.util.UUID;
@@ -104,6 +114,34 @@ public abstract class SpigotLuaToolkit implements LuaToolkit {
     @Override
     public SpigotLuaCommandManager getCommandManager() {
         return commandManager;
+    }
+
+    @Override
+    public @Nullable SpigotLuaMaterial parseMaterial(LuaValue value, boolean exact) {
+        String name = LuaBridge.extractName(value);
+        MetaMaterial mm = MaterialLib.getMaterial(name);
+        MetaMaterial proposed = LuaBridge.extractUserdata(value, "GetMetaMaterial", MetaMaterial.class);
+        if (proposed != null) {
+            mm = proposed;
+        } else {
+            if (mm == null) return null;
+            if (exact) {
+                if (!mm.isExactMatch()) return null;
+            }
+        }
+        return new SpigotLuaMaterial(name, mm);
+    }
+
+    @Override
+    public @NotNull LuaItemStack createItemStack(LuaMaterial lm, int count) {
+        SpigotLuaMaterial slm = getTypeAdapter().convertMaterial(lm);
+        ItemStack is;
+        if (slm == null) {
+            is = MaterialLib.getMaterial("STONE").createItemStack(count);
+        } else {
+            is = slm.getMetaMaterial().createItemStack(count);
+        }
+        return new SpigotLuaItemStack(is);
     }
 
 }

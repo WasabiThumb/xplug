@@ -9,13 +9,17 @@ package codes.wasabi.xplug.platform.spigot.base.world;
 */
 
 import codes.wasabi.xplug.platform.spigot.base.SpigotLuaToolkit;
+import codes.wasabi.xplug.struct.block.LuaBlock;
 import codes.wasabi.xplug.struct.entity.LuaEntity;
 import codes.wasabi.xplug.struct.entity.LuaPlayer;
 import codes.wasabi.xplug.struct.world.LuaChunk;
 import codes.wasabi.xplug.struct.world.LuaWorld;
+import codes.wasabi.xplug.util.func.GetterFunction;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.luaj.vm2.LuaTable;
+import org.luaj.vm2.LuaUserdata;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -60,6 +64,18 @@ public abstract class SpigotLuaWorld implements LuaWorld {
     @Override
     public int getMaxHeight() {
         return getBukkitWorld().getMaxHeight();
+    }
+
+    @Override
+    public LuaBlock getBlock(int x, int y, int z) {
+        return SpigotLuaToolkit.getAdapter().convertBlock(bukkitWorld.getBlockAt(x, y, z));
+    }
+
+    @Override
+    public LuaTable getLuaValue() {
+        LuaTable lt = LuaWorld.super.getLuaValue();
+        lt.set("GetHandle", new GetterFunction(() -> new LuaUserdata(bukkitWorld)));
+        return lt;
     }
 
 }

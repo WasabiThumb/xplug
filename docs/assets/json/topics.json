@@ -934,6 +934,16 @@
         "title": "xpcall",
         "id": "xpcall",
         "type": 3
+      },
+      {
+        "title": "Material",
+        "id": "$Material",
+        "type": 3
+      },
+      {
+        "title": "ItemStack",
+        "id": "$ItemStack",
+        "type": 3
       }
     ]
   },
@@ -941,6 +951,118 @@
     "title": "Objects",
     "icon": "",
     "entries": [
+      {
+        "title": "Location",
+        "id": "location",
+        "type": 1,
+        "children": [
+          {
+            "title": "GetWorld",
+            "id": "location/GetWorld",
+            "type": 3
+          },
+          {
+            "title": "GetX",
+            "id": "location/GetX",
+            "type": 3
+          },
+          {
+            "title": "GetY",
+            "id": "location/GetY",
+            "type": 3
+          },
+          {
+            "title": "GetZ",
+            "id": "location/GetZ",
+            "type": 3
+          },
+          {
+            "title": "GetBlockX",
+            "id": "location/GetBlockX",
+            "type": 3
+          },
+          {
+            "title": "GetBlockY",
+            "id": "location/GetBlockY",
+            "type": 3
+          },
+          {
+            "title": "GetBlockZ",
+            "id": "location/GetBlockZ",
+            "type": 3
+          },
+          {
+            "title": "GetYaw",
+            "id": "location/GetYaw",
+            "type": 3
+          },
+          {
+            "title": "GetPitch",
+            "id": "location/GetPitch",
+            "type": 3
+          },
+          {
+            "title": "ToVector",
+            "id": "location/ToVector",
+            "type": 3
+          },
+          {
+            "title": "ToBlockLocation",
+            "id": "location/ToBlockLocation",
+            "type": 3
+          },
+          {
+            "title": "GetDirection",
+            "id": "location/GetDirection",
+            "type": 3
+          },
+          {
+            "title": "SetDirection",
+            "id": "location/SetDirection",
+            "type": 3
+          },
+          {
+            "title": "SetWorld",
+            "id": "location/SetWorld",
+            "type": 3
+          },
+          {
+            "title": "SetX",
+            "id": "location/SetX",
+            "type": 3
+          },
+          {
+            "title": "SetY",
+            "id": "location/SetY",
+            "type": 3
+          },
+          {
+            "title": "SetZ",
+            "id": "location/SetZ",
+            "type": 3
+          },
+          {
+            "title": "SetYaw",
+            "id": "location/SetYaw",
+            "type": 3
+          },
+          {
+            "title": "SetPitch",
+            "id": "location/SetPitch",
+            "type": 3
+          },
+          {
+            "title": "Zero",
+            "id": "location/Zero",
+            "type": 3
+          },
+          {
+            "title": "GetBlock",
+            "id": "location/GetBlock",
+            "type": 3
+          }
+        ]
+      },
       {
         "title": "Audience",
         "id": "audience",
@@ -1011,6 +1133,11 @@
           {
             "title": "SetForceLoaded",
             "id": "chunk/SetForceLoaded",
+            "type": 3
+          },
+          {
+            "title": "GetBlock",
+            "id": "chunk/GetBlock",
             "type": 3
           }
         ]
@@ -1285,6 +1412,11 @@
           {
             "title": "GetMaxHeight",
             "id": "world/GetMaxHeight",
+            "type": 3
+          },
+          {
+            "title": "GetBlock",
+            "id": "world/GetBlock",
             "type": 3
           }
         ]

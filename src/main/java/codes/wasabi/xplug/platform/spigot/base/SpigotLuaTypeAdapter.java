@@ -8,22 +8,27 @@ package codes.wasabi.xplug.platform.spigot.base;
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
+import codes.wasabi.xplug.platform.spigot.base.block.SpigotLuaBlock;
 import codes.wasabi.xplug.platform.spigot.base.command.SpigotLuaCommandSender;
 import codes.wasabi.xplug.platform.spigot.base.entity.SpigotLuaEntity;
 import codes.wasabi.xplug.platform.spigot.base.entity.SpigotLuaNPC;
 import codes.wasabi.xplug.platform.spigot.base.entity.SpigotLuaPlayer;
+import codes.wasabi.xplug.platform.spigot.base.material.SpigotLuaMaterial;
 import codes.wasabi.xplug.platform.spigot.base.text.SpigotLuaAudience;
 import codes.wasabi.xplug.platform.spigot.base.world.SpigotLuaChunk;
 import codes.wasabi.xplug.platform.spigot.base.world.SpigotLuaWorld;
+import codes.wasabi.xplug.struct.block.LuaBlock;
 import codes.wasabi.xplug.struct.command.LuaCommandSender;
 import codes.wasabi.xplug.struct.data.LuaLocation;
 import codes.wasabi.xplug.struct.data.LuaVector;
 import codes.wasabi.xplug.struct.entity.LuaEntity;
+import codes.wasabi.xplug.struct.material.LuaMaterial;
 import codes.wasabi.xplug.struct.world.LuaChunk;
 import codes.wasabi.xplug.struct.world.LuaWorld;
 import codes.wasabi.xplug.util.LuaBridge;
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -51,6 +56,8 @@ public abstract class SpigotLuaTypeAdapter {
     }
 
     public @Nullable World convertWorld(LuaValue lv) {
+        World world = LuaBridge.extractHandle(lv, World.class);
+        if (world != null) return world;
         String name = LuaBridge.extractName(lv);
         return Bukkit.getWorld(name);
     }
@@ -70,6 +77,8 @@ public abstract class SpigotLuaTypeAdapter {
     }
 
     public @Nullable Chunk convertChunk(LuaValue lv) {
+        Chunk chunk = LuaBridge.extractHandle(lv, Chunk.class);
+        if (chunk != null) return chunk;
         World world = null;
         LuaValue getWorld = lv.get("GetWorld");
         if (getWorld.isfunction()) {
@@ -106,6 +115,8 @@ public abstract class SpigotLuaTypeAdapter {
     }
 
     public @Nullable Entity convertEntity(@NotNull LuaValue lv) {
+        Entity handle = LuaBridge.extractHandle(lv, Entity.class);
+        if (handle != null) return handle;
         UUID uuid = LuaBridge.extractUUID(lv);
         for (World w : Bukkit.getWorlds()) {
             for (Entity ent : w.getEntities()) {
@@ -129,6 +140,8 @@ public abstract class SpigotLuaTypeAdapter {
     }
 
     public @Nullable Player convertPlayer(@NotNull LuaValue lv) {
+        Player handle = LuaBridge.extractHandle(lv, Player.class);
+        if (handle != null) return handle;
         UUID uuid = LuaBridge.extractUUID(lv);
         return Bukkit.getPlayer(uuid);
     }
@@ -192,6 +205,20 @@ public abstract class SpigotLuaTypeAdapter {
         LuaLocation loc = LuaLocation.fromLuaValue(lv);
         if (loc == null) return null;
         return convertLocation(loc);
+    }
+
+    public @Nullable SpigotLuaMaterial convertMaterial(@NotNull LuaMaterial material) {
+        SpigotLuaMaterial slm;
+        if (material instanceof SpigotLuaMaterial) {
+            slm = (SpigotLuaMaterial) material;
+        } else {
+            slm = SpigotLuaToolkit.getInstance().parseMaterial(material.getLuaValue(), true);
+        }
+        return slm;
+    }
+
+    public @NotNull SpigotLuaBlock convertBlock(@NotNull Block block) {
+        return new SpigotLuaBlock(block);
     }
 
 }

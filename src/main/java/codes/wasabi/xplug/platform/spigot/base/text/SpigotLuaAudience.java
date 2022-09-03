@@ -9,6 +9,7 @@ package codes.wasabi.xplug.platform.spigot.base.text;
 */
 
 import codes.wasabi.xplug.struct.text.LuaAudience;
+import codes.wasabi.xplug.util.func.GetterFunction;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.key.InvalidKeyException;
 import net.kyori.adventure.key.Key;
@@ -16,6 +17,8 @@ import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.title.Title;
 import org.intellij.lang.annotations.Subst;
+import org.luaj.vm2.LuaTable;
+import org.luaj.vm2.LuaUserdata;
 
 public class SpigotLuaAudience implements LuaAudience {
 
@@ -68,6 +71,13 @@ public class SpigotLuaAudience implements LuaAudience {
     @Override
     public void showTitle(String title, String subtitle) {
         a.showTitle(Title.title(mm.deserialize(title), mm.deserialize(subtitle)));
+    }
+
+    @Override
+    public LuaTable getLuaValue() {
+        LuaTable lt = LuaAudience.super.getLuaValue();
+        lt.set("GetHandle", new GetterFunction(() -> new LuaUserdata(a)));
+        return lt;
     }
 
 }

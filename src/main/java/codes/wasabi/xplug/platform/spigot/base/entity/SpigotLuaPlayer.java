@@ -10,6 +10,7 @@ package codes.wasabi.xplug.platform.spigot.base.entity;
 
 import codes.wasabi.xplug.platform.spigot.base.command.SpigotLuaCommandSender;
 import codes.wasabi.xplug.struct.entity.LuaPlayer;
+import codes.wasabi.xplug.util.func.GetterFunction;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
@@ -19,6 +20,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.luaj.vm2.LuaTable;
+import org.luaj.vm2.LuaValue;
 
 public class SpigotLuaPlayer extends SpigotLuaCommandSender implements LuaPlayer, SpigotLuaEntity {
 
@@ -84,7 +86,9 @@ public class SpigotLuaPlayer extends SpigotLuaCommandSender implements LuaPlayer
 
     @Override
     public LuaTable getLuaValue() {
-        return LuaPlayer.super.getLuaValue();
+        LuaTable lt = LuaPlayer.super.getLuaValue();
+        lt.set("GetHandle", new GetterFunction(() -> LuaValue.userdataOf(entity)));
+        return lt;
     }
 
 }

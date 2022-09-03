@@ -11,9 +11,13 @@ package codes.wasabi.xplug.struct;
 import codes.wasabi.xplug.struct.command.LuaCommandManager;
 import codes.wasabi.xplug.struct.command.LuaCommandSender;
 import codes.wasabi.xplug.struct.entity.LuaPlayer;
+import codes.wasabi.xplug.struct.item.LuaItemStack;
+import codes.wasabi.xplug.struct.material.LuaMaterial;
 import codes.wasabi.xplug.struct.world.LuaWorld;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.luaj.vm2.LuaValue;
 
 import java.util.Collection;
 import java.util.UUID;
@@ -46,5 +50,9 @@ public interface LuaToolkit {
     LuaEvents getEvents();
 
     LuaCommandManager getCommandManager();
+
+    @Nullable LuaMaterial parseMaterial(LuaValue value, boolean exact);
+
+    @NotNull LuaItemStack createItemStack(LuaMaterial lm, int count);
 
 }

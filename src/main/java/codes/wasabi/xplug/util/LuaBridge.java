@@ -219,4 +219,32 @@ public class LuaBridge {
         return lv.todouble();
     }
 
+    public static <T> @Nullable T extractUserdata(@NotNull LuaValue lv, @NotNull String methodName, @NotNull Class<? extends T> clazz) {
+        LuaValue value;
+        try {
+            value = lv.get(methodName);
+        } catch (LuaError e) {
+            value = LuaValue.NIL;
+        }
+        if (value.isfunction()) {
+            LuaValue lv1 = value.call();
+            if (lv1.isuserdata()) {
+                Object vud = lv1.touserdata();
+                if (clazz.isInstance(vud)) return clazz.cast(vud);
+            }
+        } else if (value.isuserdata()) {
+            Object vud = value.touserdata();
+            if (clazz.isInstance(vud)) return clazz.cast(vud);
+        }
+        if (lv.isuserdata()) {
+            Object ud = lv.touserdata();
+            if (clazz.isInstance(ud)) return clazz.cast(ud);
+        }
+        return null;
+    }
+
+    public static <T> @Nullable T extractHandle(@NotNull LuaValue lv, @NotNull Class<? extends T> clazz) {
+        return extractUserdata(lv, "GetHandle", clazz);
+    }
+
 }

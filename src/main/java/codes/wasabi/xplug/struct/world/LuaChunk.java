@@ -9,9 +9,13 @@ package codes.wasabi.xplug.struct.world;
 */
 
 import codes.wasabi.xplug.struct.LuaValueHolder;
+import codes.wasabi.xplug.struct.block.LuaBlock;
 import codes.wasabi.xplug.struct.entity.LuaEntity;
 import codes.wasabi.xplug.util.func.GetterFunction;
 import codes.wasabi.xplug.util.func.OneArgMetaFunction;
+import codes.wasabi.xplug.util.func.ThreeArgMetaFunction;
+import org.jetbrains.annotations.Range;
+import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 
@@ -47,8 +51,10 @@ public interface LuaChunk extends LuaValueHolder {
 
      void setForceLoaded(boolean forceLoaded);
 
+     LuaBlock getBlock(@Range(from=0L, to=15L) int x, int y, @Range(from=0L, to=15L) int z);
+
     @Override
-    default LuaValue getLuaValue() {
+    default LuaTable getLuaValue() {
         LuaTable lt = new LuaTable();
         lt.set("GetWorld", new GetterFunction(this::getWorld));
         lt.set("GetX", new GetterFunction(this::getX));
@@ -62,6 +68,18 @@ public interface LuaChunk extends LuaValueHolder {
             protected LuaValue call(LuaTable self, LuaValue arg) {
                 setForceLoaded(arg.toboolean());
                 return LuaValue.NIL;
+            }
+        });
+        lt.set("GetBlock", new ThreeArgMetaFunction() {
+            @Override
+            protected LuaValue call(LuaTable self, LuaValue arg1, LuaValue arg2, LuaValue arg3) {
+                int x = arg1.toint();
+                int y = arg2.toint();
+                int z = arg3.toint();
+                if (x < 0 || x > 15) throw new LuaError("X coordinate must be between 0 and 15");
+                if (z < 0 || z > 15) throw new LuaError("Z coordinate must be between 0 and 15");
+                LuaBlock lb = getBlock(x, y, z);
+                return lb.getLuaValue();
             }
         });
         return lt;

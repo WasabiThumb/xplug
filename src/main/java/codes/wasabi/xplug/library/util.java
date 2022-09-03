@@ -11,6 +11,8 @@ package codes.wasabi.xplug.library;
 import codes.wasabi.xplug.XPlug;
 import codes.wasabi.xplug.struct.data.LuaLocation;
 import codes.wasabi.xplug.struct.data.LuaVector;
+import codes.wasabi.xplug.struct.item.LuaItemStack;
+import codes.wasabi.xplug.struct.material.LuaMaterial;
 import codes.wasabi.xplug.struct.world.LuaWorld;
 import codes.wasabi.xplug.util.LuaBridge;
 import codes.wasabi.xplug.util.func.NilFunction;
@@ -57,6 +59,8 @@ public class util extends TwoArgFunction {
         env.set("PrintTable", new PrintTable(env.get("print")));
         env.set("Location", new Location());
         env.set("Vector", new Vector());
+        env.set("Material", new Material());
+        env.set("ItemStack", new ItemStack());
         return library;
     }
 
@@ -207,7 +211,7 @@ public class util extends TwoArgFunction {
                 dfos.write(bytes);
                 dfos.flush();
             } catch (IOException ignored) { }
-            return valueOf(new String(bos.toByteArray(), StandardCharsets.UTF_8));
+            return valueOf(new String(Base64.getEncoder().encode(bos.toByteArray()), StandardCharsets.UTF_8));
         }
     }
 
@@ -215,7 +219,7 @@ public class util extends TwoArgFunction {
         @Override
         public LuaValue call(LuaValue arg) {
             String encoded = arg.checkjstring();
-            byte[] bytes = encoded.getBytes(StandardCharsets.UTF_8);
+            byte[] bytes = Base64.getDecoder().decode(encoded.getBytes(StandardCharsets.UTF_8));
             try {
                 ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
                 InflaterInputStream ifis = new InflaterInputStream(bis);
@@ -310,6 +314,35 @@ public class util extends TwoArgFunction {
         @Override
         public LuaValue call(LuaValue arg1, LuaValue arg2, LuaValue arg3) {
             return (new LuaVector(arg1.todouble(), arg2.todouble(), arg3.todouble())).getLuaValue();
+        }
+    }
+
+    static class Material extends VarArgFunction {
+        @Override
+        public Varargs invoke(Varargs args) {
+            LuaValue obj = args.checkvalue(1);
+            boolean exact = false;
+            if (args.narg() > 1) {
+                exact = args.toboolean(2);
+            }
+            LuaMaterial lm = XPlug.getToolkit().parseMaterial(obj, exact);
+            if (lm == null) return LuaValue.NIL;
+            return LuaValue.varargsOf(new LuaValue[]{ lm.getLuaValue() });
+        }
+    }
+
+    static class ItemStack extends VarArgFunction {
+        @Override
+        public Varargs invoke(Varargs args) {
+            LuaValue mat = args.checkvalue(1);
+            LuaMaterial lm = XPlug.getToolkit().parseMaterial(mat, true);
+            if (lm == null) throw new LuaError("Invalid material");
+            int count = 1;
+            if (args.narg() > 1) {
+                count = Math.max(args.toint(2), 0);
+            }
+            LuaItemStack lis = XPlug.getToolkit().createItemStack(lm, count);
+            return lis.getLuaValue();
         }
     }
 

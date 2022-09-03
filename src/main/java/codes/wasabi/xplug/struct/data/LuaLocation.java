@@ -10,6 +10,7 @@ package codes.wasabi.xplug.struct.data;
 
 import codes.wasabi.xplug.XPlug;
 import codes.wasabi.xplug.struct.LuaValueHolder;
+import codes.wasabi.xplug.struct.block.LuaBlock;
 import codes.wasabi.xplug.struct.world.LuaWorld;
 import codes.wasabi.xplug.util.LuaBridge;
 import codes.wasabi.xplug.util.func.GetterFunction;
@@ -211,6 +212,10 @@ public class LuaLocation implements LuaValueHolder {
         return this;
     }
 
+    public LuaBlock getBlock() {
+        return world.getBlock(getBlockX(), getBlockY(), getBlockZ());
+    }
+
     private void setTableParams(LuaTable lt) {
         lt.set(1, LuaBridge.toLua(world));
         lt.set(2, LuaValue.valueOf(x));
@@ -306,6 +311,7 @@ public class LuaLocation implements LuaValueHolder {
                 return LuaValue.varargsOf(new LuaValue[]{ self });
             }
         });
+        lt.set("GetBlock", new GetterFunction(this::getBlock));
         return lt;
     }
 

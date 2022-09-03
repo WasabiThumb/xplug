@@ -23,6 +23,7 @@ hello_world | Sends a message to every player and the console with the text "Hel
 halos | Adds a glowing golden halo to every player. A good example of the hook and timer library. You can stop this with ``/xp exec stopHalo()``
 swap | Swaps the position of every player with the position of another player. A good example of entity APIs.
 whack | Adds a command ``/whack [player] [times]`` that repeatedly damages a target player in quick succession. A good example of command APIs. It is a known issue that commands added with LUA scripts don't reliably tab complete, however they will execute.
+materials | Places some blocks of different materials around the player. Only executes when there is 1 player online, and that player is an operator. This is meant for testing purposes and may be removed later.
 
 ### Commands
 Note that ``xplug`` has a shorter alias ``xp``
@@ -51,7 +52,7 @@ PlayerChat | Player player, String message | Called when a player chats
 
 ## Roadmap
 1. Finish documentation
-2. Implement Block, Material, ItemStack, and Inventory
+2. Implement Inventory
 3. Support all of the most common events
 4. TBA
 

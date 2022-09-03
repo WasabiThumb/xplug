@@ -9,8 +9,11 @@ package codes.wasabi.xplug.platform.spigot.base.entity;
 */
 
 import codes.wasabi.xplug.struct.entity.LuaNPC;
+import codes.wasabi.xplug.util.func.GetterFunction;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
+import org.luaj.vm2.LuaTable;
+import org.luaj.vm2.LuaValue;
 
 public class SpigotLuaNPC implements LuaNPC, SpigotLuaEntity {
 
@@ -32,6 +35,13 @@ public class SpigotLuaNPC implements LuaNPC, SpigotLuaEntity {
     @Override
     public boolean hasHealth() {
         return (entity instanceof Damageable);
+    }
+
+    @Override
+    public LuaTable getLuaValue() {
+        LuaTable lt = LuaNPC.super.getLuaValue();
+        lt.set("GetHandle", new GetterFunction(() -> LuaValue.userdataOf(entity)));
+        return lt;
     }
 
 }

@@ -9,11 +9,17 @@ package codes.wasabi.xplug.platform.spigot.base.world;
 */
 
 import codes.wasabi.xplug.platform.spigot.base.SpigotLuaToolkit;
+import codes.wasabi.xplug.struct.block.LuaBlock;
 import codes.wasabi.xplug.struct.entity.LuaEntity;
 import codes.wasabi.xplug.struct.world.LuaChunk;
 import codes.wasabi.xplug.struct.world.LuaWorld;
+import codes.wasabi.xplug.util.func.GetterFunction;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Entity;
+import org.jetbrains.annotations.Range;
+import org.luaj.vm2.LuaTable;
+import org.luaj.vm2.LuaUserdata;
+import org.luaj.vm2.LuaValue;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -54,6 +60,18 @@ public abstract class SpigotLuaChunk implements LuaChunk {
     @Override
     public boolean isLoaded() {
         return bukkitChunk.isLoaded();
+    }
+
+    @Override
+    public LuaBlock getBlock(@Range(from = 0L, to = 15L) int x, int y, @Range(from = 0L, to = 15L) int z) {
+        return SpigotLuaToolkit.getAdapter().convertBlock(bukkitChunk.getBlock(x, y, z));
+    }
+
+    @Override
+    public LuaTable getLuaValue() {
+        LuaTable lt = LuaChunk.super.getLuaValue();
+        lt.set("GetHandle", new GetterFunction(() -> new LuaUserdata(bukkitChunk)));
+        return lt;
     }
 
 }
