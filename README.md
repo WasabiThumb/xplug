@@ -55,6 +55,9 @@ PlayerBreakBlock | Player player, Block block, int expToDrop, Function<int> setE
 PlayerInteract | Player player, ItemStack itemInHand, boolean leftClick, Block blockClicked, Entity entityClicked, Location clickLocation | Called when a plyer interacts with a block or entity (cannot be both)
 PlayerInteractPhysical | Player player, Block block | Called when a player interacts with a block physically (pressure plate, trample, etc)
 PlayerDropItem | Player player, Entity itemEntity, ItemStack item | Called when a player drops an item
+EntityDamage | Entity entity, String cause, double damage, Function<double> setDamage | Called when an entity takes damage for any reason
+EntityDamageByBlock | Entity entity, Block block, String cause, double damage, Function<double> setDamage | Called when an entity takes damage from a block
+EntityDamageByEntity | Entity entity, Entity damager, String cause, double damage, Function<double> setDamage | Called when an entity takes damage from an entity
 
 ## Roadmap
 1. Finish documentation

@@ -20,6 +20,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageByBlockEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -262,6 +265,59 @@ public class SpigotLuaEvents extends LuaEvents implements Listener {
         );
     }
 
-    // TODO : Damage events
+    @EventHandler
+    public void onDamage(EntityDamageEvent event) {
+        if (event instanceof EntityDamageByEntityEvent) {
+            EntityDamageByEntityEvent byEntity = (EntityDamageByEntityEvent) event;
+            helper(
+                    event,
+                    "EntityDamageByEntity",
+                    adapter().convertEntity(byEntity.getEntity()),
+                    adapter().convertEntity(byEntity.getDamager()),
+                    event.getCause().toString(),
+                    byEntity.getDamage(),
+                    new OneArgFunction() {
+                        @Override
+                        public LuaValue call(LuaValue arg) {
+                            byEntity.setDamage(arg.todouble());
+                            return LuaValue.NIL;
+                        }
+                    }
+            );
+        } else if (event instanceof EntityDamageByBlockEvent) {
+            EntityDamageByBlockEvent byBlock = (EntityDamageByBlockEvent) event;
+            Block block = byBlock.getDamager();
+            helper(
+                    event,
+                    "EntityDamageByBlock",
+                    adapter().convertEntity(byBlock.getEntity()),
+                    block == null ? LuaValue.NIL : adapter().convertBlock(block),
+                    event.getCause().toString(),
+                    byBlock.getDamage(),
+                    new OneArgFunction() {
+                        @Override
+                        public LuaValue call(LuaValue arg) {
+                            byBlock.setDamage(arg.todouble());
+                            return LuaValue.NIL;
+                        }
+                    }
+            );
+        }
+        if (event.isCancelled()) return;
+        helper(
+                event,
+                "EntityDamage",
+                adapter().convertEntity(event.getEntity()),
+                event.getCause().toString(),
+                event.getDamage(),
+                new OneArgFunction() {
+                    @Override
+                    public LuaValue call(LuaValue arg) {
+                        event.setDamage(arg.todouble());
+                        return LuaValue.NIL;
+                    }
+                }
+        );
+    }
 
 }
