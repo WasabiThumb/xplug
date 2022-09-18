@@ -9,19 +9,24 @@ package codes.wasabi.xplug.platform.spigot.base;
 import codes.wasabi.xplug.XPlug;
 import codes.wasabi.xplug.struct.LuaEvents;
 import codes.wasabi.xplug.util.LuaBridge;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
+import io.papermc.lib.PaperLib;
+import org.bukkit.*;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.*;
+import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemStack;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
+
+import java.lang.reflect.Method;
 
 public class SpigotLuaEvents extends LuaEvents implements Listener {
 
@@ -98,5 +103,165 @@ public class SpigotLuaEvents extends LuaEvents implements Listener {
             }
         }, event.isAsynchronous());
     }
+
+    @EventHandler
+    public void onChangeGameMode(PlayerGameModeChangeEvent event) {
+        helper(
+                event,
+                "PlayerChangeGameMode",
+                adapter().convertPlayer(event.getPlayer()),
+                adapter().convertGameMode(event.getPlayer().getGameMode()),
+                adapter().convertGameMode(event.getNewGameMode())
+        );
+    }
+
+    @EventHandler
+    public void onPlace(BlockPlaceEvent event) {
+        helper(
+                event,
+                "PlayerPlaceBlock",
+                adapter().convertPlayer(event.getPlayer()),
+                adapter().convertBlock(event.getBlock()),
+                adapter().convertBlock(event.getBlockAgainst()),
+                adapter().convertItemStack(event.getItemInHand())
+        );
+    }
+
+    @EventHandler
+    public void onBreak(BlockBreakEvent event) {
+        helper(
+                event,
+                "PlayerBreakBlock",
+                adapter().convertPlayer(event.getPlayer()),
+                adapter().convertBlock(event.getBlock()),
+                event.getExpToDrop(),
+                new OneArgFunction() {
+                    @Override
+                    public LuaValue call(LuaValue arg) {
+                        event.setExpToDrop(arg.toint());
+                        return LuaValue.NIL;
+                    }
+                }
+        );
+    }
+
+    @EventHandler
+    public void onInteract(PlayerInteractEvent event) {
+        Action action = event.getAction();
+        Block b = event.getClickedBlock();
+        if (action.equals(Action.PHYSICAL)) {
+            helper(
+                    event,
+                    "PlayerInteractPhysical",
+                    adapter().convertPlayer(event.getPlayer()),
+                    b == null ? LuaValue.NIL : adapter().convertBlock(b)
+            );
+        } else {
+            Location loc = event.getPlayer().getLocation();
+            if (b != null) {
+                loc = b.getLocation().add(0.5d, 0.5d, 0.5d);
+                if (PaperLib.isVersion(13, 2)) {
+                    loc.add(event.getBlockFace().getDirection().multiply(0.5d));
+                } else {
+                    switch (event.getBlockFace()) {
+                        case UP:
+                            loc.add(0d, 0.5d, 0d);
+                            break;
+                        case DOWN:
+                            loc.add(0d, -0.5d, 0d);
+                            break;
+                        case EAST:
+                            loc.add(0.5d, 0d, 0d);
+                            break;
+                        case WEST:
+                            loc.add(-0.5d, 0d, 0d);
+                            break;
+                        case SOUTH:
+                            loc.add(0d, 0d, 0.5d);
+                            break;
+                        case NORTH:
+                            loc.add(0d, 0d, -0.5d);
+                            break;
+                        case NORTH_EAST:
+                            loc.add(0.5d, 0d, -0.5d);
+                            break;
+                        case NORTH_WEST:
+                            loc.add(-0.5d, 0d, -0.5d);
+                            break;
+                        case SOUTH_EAST:
+                            loc.add(0.5d, 0d, 0.5d);
+                            break;
+                        case SOUTH_WEST:
+                            loc.add(-0.5d, 0d, 0.5d);
+                            break;
+                    }
+                }
+            }
+            ItemStack is = event.getItem();
+            helper(
+                    event,
+                    "PlayerInteract",
+                    adapter().convertPlayer(event.getPlayer()),
+                    is == null ? LuaValue.NIL : adapter().convertItemStack(is),
+                    action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK),
+                    b == null ? LuaValue.NIL : adapter().convertBlock(b),
+                    LuaValue.NIL,
+                    loc
+            );
+        }
+    }
+
+    @EventHandler
+    public void onInteractEntity(PlayerInteractEntityEvent event) {
+        Location loc = event.getRightClicked().getLocation();
+        if (event instanceof PlayerInteractAtEntityEvent) {
+            loc = ((PlayerInteractAtEntityEvent) event).getClickedPosition().toLocation(event.getRightClicked().getWorld());
+        }
+        ItemStack is;
+        if (PaperLib.isVersion(16, 1)) {
+            is = event.getPlayer().getInventory().getItem(event.getHand());
+        } else if (PaperLib.isVersion(9)) {
+            if (event.getHand().equals(EquipmentSlot.HAND)) {
+                is = event.getPlayer().getInventory().getItemInMainHand();
+            } else if (event.getHand().equals(EquipmentSlot.OFF_HAND)) {
+                is = event.getPlayer().getInventory().getItemInOffHand();
+            } else {
+                is = null;
+            }
+        } else {
+            Player ply = event.getPlayer();
+            Class<? extends Player> clazz = ply.getClass();
+            try {
+                Method m = clazz.getMethod("getItemInHand");
+                is = (ItemStack) m.invoke(ply);
+            } catch (Exception e) {
+                e.printStackTrace();
+                is = null;
+            }
+        }
+        helper(
+                event,
+                "PlayerInteract",
+                adapter().convertPlayer(event.getPlayer()),
+                is == null ? LuaValue.NIL : adapter().convertItemStack(is),
+                false,
+                null,
+                adapter().convertEntity(event.getRightClicked()),
+                loc
+        );
+    }
+
+    @EventHandler
+    public void onDrop(PlayerDropItemEvent event) {
+        helper(
+                event,
+                "PlayerDropItem",
+                adapter().convertPlayer(event.getPlayer()),
+                adapter().convertEntity(event.getItemDrop()),
+                adapter().convertItemStack(event.getItemDrop().getItemStack())
+        );
+    }
+
+    // TODO : Damage events
 
 }

@@ -49,6 +49,12 @@ PlayerLeave | Player player, String quitMessage | Called when a player quits
 PlayerChangeWorld | Player player, World a, World b | Called when a player moves between worlds
 PlayerMove | Player player, Location a, Location b | Called when a player moves within a world. This is being refactored to use the Location API instead of individual numbers
 PlayerChat | Player player, String message | Called when a player chats
+PlayerChangeGameMode | Player player, int previousMode, int newMode | Called when a player changes their game mode
+PlayerPlaceBlock | Player player, Block block, Block placedAgainst, ItemStack itemInHand | Called when a player places a block
+PlayerBreakBlock | Player player, Block block, int expToDrop, Function<int> setExpToDrop | Called when a player breaks a block
+PlayerInteract | Player player, ItemStack itemInHand, boolean leftClick, Block blockClicked, Entity entityClicked, Location clickLocation | Called when a plyer interacts with a block or entity (cannot be both)
+PlayerInteractPhysical | Player player, Block block | Called when a player interacts with a block physically (pressure plate, trample, etc)
+PlayerDropItem | Player player, Entity itemEntity, ItemStack item | Called when a player drops an item
 
 ## Roadmap
 1. Finish documentation
