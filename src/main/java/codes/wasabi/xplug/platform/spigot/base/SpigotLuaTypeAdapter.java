@@ -45,6 +45,8 @@ import xyz.wasabicodes.matlib.struct.MetaMaterial;
 
 import java.util.UUID;
 
+import static codes.wasabi.xplug.library.enums.*;
+
 public abstract class SpigotLuaTypeAdapter {
 
     protected abstract SpigotLuaWorld createWorld(World world);
@@ -268,5 +270,33 @@ public abstract class SpigotLuaTypeAdapter {
     }
 
     public abstract SpigotLuaInventory convertInventory(Inventory inventory);
+
+    public GameMode convertGameMode(int code) {
+        switch (code) {
+            case GM_SURVIVAL:
+                return GameMode.SURVIVAL;
+            case GM_CREATIVE:
+                return GameMode.CREATIVE;
+            case GM_ADVENTURE:
+                return GameMode.ADVENTURE;
+            case GM_SPECTATOR:
+                return GameMode.SPECTATOR;
+        }
+        return GameMode.SURVIVAL;
+    }
+
+    public int convertGameMode(GameMode mode) {
+        switch (mode) {
+            case SURVIVAL:
+                return GM_SURVIVAL;
+            case CREATIVE:
+                return GM_CREATIVE;
+            case ADVENTURE:
+                return GM_ADVENTURE;
+            case SPECTATOR:
+                return GM_SPECTATOR;
+        }
+        return GM_SURVIVAL;
+    }
 
 }

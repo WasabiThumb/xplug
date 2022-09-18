@@ -165,4 +165,14 @@ public abstract class SpigotLuaToolkit implements LuaToolkit {
         return adapter.convertItemStack(is);
     }
 
+    @Override
+    public int getDefaultGameMode() {
+        return getAdapter().convertGameMode(Bukkit.getServer().getDefaultGameMode());
+    }
+
+    @Override
+    public void setDefaultGameMode(int mode) {
+        Bukkit.getServer().setDefaultGameMode(getAdapter().convertGameMode(mode));
+    }
+
 }

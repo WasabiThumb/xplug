@@ -82,6 +82,16 @@ public class SpigotLuaPlayer extends SpigotLuaCommandSender implements LuaPlayer
     }
 
     @Override
+    public int getGameMode() {
+        return SpigotLuaToolkit.getAdapter().convertGameMode(entity.getGameMode());
+    }
+
+    @Override
+    public void setGameMode(int mode) {
+        entity.setGameMode(SpigotLuaToolkit.getAdapter().convertGameMode(mode));
+    }
+
+    @Override
     public boolean isConsole() {
         return false;
     }

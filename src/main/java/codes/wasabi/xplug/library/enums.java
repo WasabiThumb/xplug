@@ -74,4 +74,9 @@ public class enums extends TwoArgFunction {
     public static final int BS_TWELVE_SEGMENT = 12;
     public static final int BS_TWENTY_SEGMENT = 20;
 
+    public static final int GM_SURVIVAL = 0;
+    public static final int GM_CREATIVE = 1;
+    public static final int GM_ADVENTURE = 2;
+    public static final int GM_SPECTATOR = 3;
+
 }

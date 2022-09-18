@@ -62,4 +62,8 @@ public interface LuaToolkit {
 
     @Nullable LuaItemStack parseItemStack(LuaValue value);
 
+    int getDefaultGameMode();
+
+    void setDefaultGameMode(int mode);
+
 }

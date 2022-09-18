@@ -37,6 +37,8 @@ public class server extends TwoArgFunction {
         library.set("GetVersion", new GetVersion());
         library.set("GetConsole", new GetConsole());
         library.set("GetPlayers", new GetPlayers());
+        library.set("GetDefaultGameMode", new GetDefaultGameMode());
+        library.set("SetDefaultGameMode", new SetDefaultGameMode());
         env.set("server", library);
         return library;
     }
@@ -81,6 +83,21 @@ public class server extends TwoArgFunction {
         @Override
         public LuaValue call() {
             return LuaBridge.toLua(ltk.getPlayers());
+        }
+    }
+
+    static class GetDefaultGameMode extends ZeroArgFunction {
+        @Override
+        public LuaValue call() {
+            return LuaValue.valueOf(ltk.getDefaultGameMode());
+        }
+    }
+
+    static class SetDefaultGameMode extends OneArgFunction {
+        @Override
+        public LuaValue call(LuaValue arg) {
+            ltk.setDefaultGameMode(arg.checkint());
+            return LuaValue.NIL;
         }
     }
 

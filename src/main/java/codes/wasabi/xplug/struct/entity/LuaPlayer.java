@@ -33,6 +33,10 @@ public interface LuaPlayer extends LuaEntity, LuaCommandSender {
 
     LuaPlayerInventory getInventory();
 
+    int getGameMode();
+
+    void setGameMode(int mode);
+
     @Override
     default LuaTable getLuaValue() {
         LuaTable lt = LuaCommandSender.super.getLuaValue();
@@ -59,6 +63,14 @@ public interface LuaPlayer extends LuaEntity, LuaCommandSender {
             }
         });
         lt.set("GetInventory", new GetterFunction(this::getInventory));
+        lt.set("GetGameMode", new GetterFunction(this::getGameMode));
+        lt.set("SetGameMode", new OneArgMetaFunction() {
+            @Override
+            protected LuaValue call(LuaTable self, LuaValue arg) {
+                setGameMode(arg.checkint());
+                return LuaValue.NIL;
+            }
+        });
         return lt;
     }
 
