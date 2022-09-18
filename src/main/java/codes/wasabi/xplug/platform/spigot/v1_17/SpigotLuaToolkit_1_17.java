@@ -9,6 +9,9 @@ package codes.wasabi.xplug.platform.spigot.v1_17;
 */
 
 import codes.wasabi.xplug.platform.spigot.base.SpigotLuaToolkit;
+import codes.wasabi.xplug.platform.spigot.base.text.SpigotLuaBossBar;
+import codes.wasabi.xplug.platform.spigot.v1_9.text.SpigotLuaBossBar_1_9;
+import org.jetbrains.annotations.NotNull;
 
 public class SpigotLuaToolkit_1_17 extends SpigotLuaToolkit {
 
@@ -16,6 +19,11 @@ public class SpigotLuaToolkit_1_17 extends SpigotLuaToolkit {
     @Override
     public SpigotLuaTypeAdapter_1_17 getTypeAdapter() {
         return typeAdapter;
+    }
+
+    @Override
+    public @NotNull SpigotLuaBossBar createBossBar(String title, int color, int style, boolean createFog, boolean darkenSky, boolean bossMusic) {
+        return new SpigotLuaBossBar_1_9(title, color, style, createFog, darkenSky, bossMusic);
     }
 
 }

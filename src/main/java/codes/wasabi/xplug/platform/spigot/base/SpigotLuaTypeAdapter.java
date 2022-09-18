@@ -13,15 +13,17 @@ import codes.wasabi.xplug.platform.spigot.base.command.SpigotLuaCommandSender;
 import codes.wasabi.xplug.platform.spigot.base.entity.SpigotLuaEntity;
 import codes.wasabi.xplug.platform.spigot.base.entity.SpigotLuaNPC;
 import codes.wasabi.xplug.platform.spigot.base.entity.SpigotLuaPlayer;
+import codes.wasabi.xplug.platform.spigot.base.inventory.SpigotLuaInventory;
+import codes.wasabi.xplug.platform.spigot.base.inventory.SpigotLuaItemStack;
 import codes.wasabi.xplug.platform.spigot.base.material.SpigotLuaMaterial;
 import codes.wasabi.xplug.platform.spigot.base.text.SpigotLuaAudience;
 import codes.wasabi.xplug.platform.spigot.base.world.SpigotLuaChunk;
 import codes.wasabi.xplug.platform.spigot.base.world.SpigotLuaWorld;
-import codes.wasabi.xplug.struct.block.LuaBlock;
 import codes.wasabi.xplug.struct.command.LuaCommandSender;
 import codes.wasabi.xplug.struct.data.LuaLocation;
 import codes.wasabi.xplug.struct.data.LuaVector;
 import codes.wasabi.xplug.struct.entity.LuaEntity;
+import codes.wasabi.xplug.struct.inventory.LuaItemStack;
 import codes.wasabi.xplug.struct.material.LuaMaterial;
 import codes.wasabi.xplug.struct.world.LuaChunk;
 import codes.wasabi.xplug.struct.world.LuaWorld;
@@ -32,10 +34,14 @@ import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.luaj.vm2.LuaValue;
+import xyz.wasabicodes.matlib.MaterialLib;
+import xyz.wasabicodes.matlib.struct.MetaMaterial;
 
 import java.util.UUID;
 
@@ -220,5 +226,47 @@ public abstract class SpigotLuaTypeAdapter {
     public @NotNull SpigotLuaBlock convertBlock(@NotNull Block block) {
         return new SpigotLuaBlock(block);
     }
+
+    public @Nullable ItemStack convertItemStack(@NotNull LuaValue luaValue) {
+        if (luaValue.isnil()) return null;
+        ItemStack handle = LuaBridge.extractHandle(luaValue, ItemStack.class);
+        if (handle != null) return handle;
+        LuaValue matFunc = luaValue.get("GetMaterial");
+        LuaValue mat;
+        if (matFunc.isnil()) {
+            mat = LuaValue.valueOf("STONE");
+        } else if (matFunc.isfunction()) {
+            mat = matFunc.call();
+        } else {
+            mat = matFunc;
+        }
+        SpigotLuaMaterial material = SpigotLuaToolkit.getInstance().parseMaterial(mat, true);
+        MetaMaterial mm;
+        if (material != null) {
+            mm = material.getMetaMaterial();
+        } else {
+            mm = MaterialLib.getMaterial("STONE");
+        }
+        int count = LuaBridge.extractInt(luaValue, "GetCount");
+        ItemStack ret = new ItemStack(mm.getBukkitMaterial(), count);
+        mm.apply(ret);
+        return ret;
+    }
+
+    public @Nullable SpigotLuaItemStack convertItemStack(ItemStack itemStack) {
+        if (itemStack == null) return null;
+        return new SpigotLuaItemStack(itemStack);
+    }
+
+    public @Nullable ItemStack convertItemStack(LuaItemStack itemStack) {
+        if (itemStack == null) return null;
+        if (itemStack instanceof SpigotLuaItemStack) {
+            return ((SpigotLuaItemStack) itemStack).getBukkitItemStack();
+        } else {
+            return convertItemStack(itemStack.getLuaValue());
+        }
+    }
+
+    public abstract SpigotLuaInventory convertInventory(Inventory inventory);
 
 }

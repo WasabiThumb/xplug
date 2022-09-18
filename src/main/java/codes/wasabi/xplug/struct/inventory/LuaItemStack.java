@@ -1,4 +1,4 @@
-package codes.wasabi.xplug.struct.item;
+package codes.wasabi.xplug.struct.inventory;
 /*
   XPlug | A LUA platform for Spigot
   Copyright 2022 Wasabi Codes

@@ -9,6 +9,7 @@ package codes.wasabi.xplug.struct.entity;
 */
 
 import codes.wasabi.xplug.struct.command.LuaCommandSender;
+import codes.wasabi.xplug.struct.inventory.LuaPlayerInventory;
 import codes.wasabi.xplug.util.func.GetterFunction;
 import codes.wasabi.xplug.util.func.OneArgMetaFunction;
 import org.jetbrains.annotations.NotNull;
@@ -29,6 +30,8 @@ public interface LuaPlayer extends LuaEntity, LuaCommandSender {
     boolean hasPermission(String permission);
 
     void kick(@Nullable String message);
+
+    LuaPlayerInventory getInventory();
 
     @Override
     default LuaTable getLuaValue() {
@@ -55,6 +58,7 @@ public interface LuaPlayer extends LuaEntity, LuaCommandSender {
                 return LuaValue.NIL;
             }
         });
+        lt.set("GetInventory", new GetterFunction(this::getInventory));
         return lt;
     }
 

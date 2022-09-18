@@ -11,8 +11,9 @@ package codes.wasabi.xplug.library;
 import codes.wasabi.xplug.XPlug;
 import codes.wasabi.xplug.struct.data.LuaLocation;
 import codes.wasabi.xplug.struct.data.LuaVector;
-import codes.wasabi.xplug.struct.item.LuaItemStack;
+import codes.wasabi.xplug.struct.inventory.LuaItemStack;
 import codes.wasabi.xplug.struct.material.LuaMaterial;
+import codes.wasabi.xplug.struct.text.LuaBossBar;
 import codes.wasabi.xplug.struct.world.LuaWorld;
 import codes.wasabi.xplug.util.LuaBridge;
 import codes.wasabi.xplug.util.func.NilFunction;
@@ -61,6 +62,7 @@ public class util extends TwoArgFunction {
         env.set("Vector", new Vector());
         env.set("Material", new Material());
         env.set("ItemStack", new ItemStack());
+        env.set("BossBar", new BossBar());
         return library;
     }
 
@@ -343,6 +345,20 @@ public class util extends TwoArgFunction {
             }
             LuaItemStack lis = XPlug.getToolkit().createItemStack(lm, count);
             return lis.getLuaValue();
+        }
+    }
+
+    static class BossBar extends VarArgFunction {
+        @Override
+        public Varargs invoke(Varargs args) {
+            String title = args.optjstring(1, "");
+            int color = args.optint(2, enums.BC_PURPLE);
+            int style = args.optint(3, enums.BS_SOLID);
+            boolean createFog = args.optboolean(4, false);
+            boolean darkenSky = args.optboolean(5, false);
+            boolean bossMusic = args.optboolean(6, false);
+            LuaBossBar bar = XPlug.getToolkit().createBossBar(title, color, style, createFog, darkenSky, bossMusic);
+            return bar.getLuaValue();
         }
     }
 

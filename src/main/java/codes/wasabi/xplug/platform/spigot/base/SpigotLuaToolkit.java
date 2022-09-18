@@ -8,17 +8,19 @@ package codes.wasabi.xplug.platform.spigot.base;
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
+import codes.wasabi.xplug.platform.spigot.base.text.SpigotLuaBossBar;
+import codes.wasabi.xplug.struct.inventory.LuaItemStack;
+import org.bukkit.entity.Player;
 import xyz.wasabicodes.matlib.MaterialLib;
 import xyz.wasabicodes.matlib.struct.MetaMaterial;
 import codes.wasabi.xplug.XPlug;
 import codes.wasabi.xplug.platform.spigot.base.command.SpigotLuaCommandManager;
 import codes.wasabi.xplug.platform.spigot.base.command.SpigotLuaCommandSender;
 import codes.wasabi.xplug.platform.spigot.base.entity.SpigotLuaPlayer;
-import codes.wasabi.xplug.platform.spigot.base.item.SpigotLuaItemStack;
+import codes.wasabi.xplug.platform.spigot.base.inventory.SpigotLuaItemStack;
 import codes.wasabi.xplug.platform.spigot.base.material.SpigotLuaMaterial;
 import codes.wasabi.xplug.struct.LuaToolkit;
 import codes.wasabi.xplug.struct.entity.LuaPlayer;
-import codes.wasabi.xplug.struct.item.LuaItemStack;
 import codes.wasabi.xplug.struct.material.LuaMaterial;
 import codes.wasabi.xplug.struct.world.LuaWorld;
 import codes.wasabi.xplug.util.LuaBridge;
@@ -133,7 +135,7 @@ public abstract class SpigotLuaToolkit implements LuaToolkit {
     }
 
     @Override
-    public @NotNull LuaItemStack createItemStack(LuaMaterial lm, int count) {
+    public @NotNull SpigotLuaItemStack createItemStack(LuaMaterial lm, int count) {
         SpigotLuaMaterial slm = getTypeAdapter().convertMaterial(lm);
         ItemStack is;
         if (slm == null) {
@@ -142,6 +144,25 @@ public abstract class SpigotLuaToolkit implements LuaToolkit {
             is = slm.getMetaMaterial().createItemStack(count);
         }
         return new SpigotLuaItemStack(is);
+    }
+
+    @Override
+    public abstract @NotNull SpigotLuaBossBar createBossBar(String title, int color, int style, boolean createFog, boolean darkenSky, boolean bossMusic);
+
+    @Override
+    public @Nullable SpigotLuaPlayer parsePlayer(LuaValue value) {
+        SpigotLuaTypeAdapter adapter = getAdapter();
+        Player ply = adapter.convertPlayer(value);
+        if (ply == null) return null;
+        return adapter.convertPlayer(ply);
+    }
+
+    @Override
+    public @Nullable LuaItemStack parseItemStack(LuaValue value) {
+        SpigotLuaTypeAdapter adapter = getAdapter();
+        ItemStack is = adapter.convertItemStack(value);
+        if (is == null) return null;
+        return adapter.convertItemStack(is);
     }
 
 }

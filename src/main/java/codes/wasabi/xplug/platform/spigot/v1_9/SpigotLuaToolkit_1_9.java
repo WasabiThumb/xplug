@@ -1,4 +1,4 @@
-package codes.wasabi.xplug.platform.spigot.v1_13_2;
+package codes.wasabi.xplug.platform.spigot.v1_9;
 /*
   XPlug | A  LUA platform for Spigot
   Copyright 2022 Wasabi Codes
@@ -8,16 +8,17 @@ package codes.wasabi.xplug.platform.spigot.v1_13_2;
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
+
 import codes.wasabi.xplug.platform.spigot.base.SpigotLuaToolkit;
 import codes.wasabi.xplug.platform.spigot.base.text.SpigotLuaBossBar;
 import codes.wasabi.xplug.platform.spigot.v1_9.text.SpigotLuaBossBar_1_9;
 import org.jetbrains.annotations.NotNull;
 
-public class SpigotLuaToolkit_1_13_2 extends SpigotLuaToolkit {
+public class SpigotLuaToolkit_1_9 extends SpigotLuaToolkit {
 
-    private final SpigotLuaTypeAdapter_1_13_2 typeAdapter = new SpigotLuaTypeAdapter_1_13_2();
+    private final SpigotLuaTypeAdapter_1_9 typeAdapter = new SpigotLuaTypeAdapter_1_9();
     @Override
-    public SpigotLuaTypeAdapter_1_13_2 getTypeAdapter() {
+    public SpigotLuaTypeAdapter_1_9 getTypeAdapter() {
         return typeAdapter;
     }
 

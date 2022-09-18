@@ -99,6 +99,8 @@ public final class XPlug extends JavaPlugin {
             toolkit = new codes.wasabi.xplug.platform.spigot.v1_17.SpigotLuaToolkit_1_17();
         } else if (PaperLib.isVersion(13, 2)) {
             toolkit = new codes.wasabi.xplug.platform.spigot.v1_13_2.SpigotLuaToolkit_1_13_2();
+        } else if (PaperLib.isVersion(9)) {
+            toolkit = new codes.wasabi.xplug.platform.spigot.v1_9.SpigotLuaToolkit_1_9();
         } else {
             toolkit = new codes.wasabi.xplug.platform.spigot.v1_8.SpigotLuaToolkit_1_8();
         }

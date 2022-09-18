@@ -8,7 +8,9 @@ package codes.wasabi.xplug.platform.spigot.base.entity;
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
+import codes.wasabi.xplug.platform.spigot.base.SpigotLuaToolkit;
 import codes.wasabi.xplug.platform.spigot.base.command.SpigotLuaCommandSender;
+import codes.wasabi.xplug.platform.spigot.base.inventory.SpigotLuaPlayerInventory;
 import codes.wasabi.xplug.struct.entity.LuaPlayer;
 import codes.wasabi.xplug.util.func.GetterFunction;
 import net.kyori.adventure.text.Component;
@@ -72,6 +74,11 @@ public class SpigotLuaPlayer extends SpigotLuaCommandSender implements LuaPlayer
     @Override
     public void kick(@Nullable String message) {
         entity.kickPlayer(message);
+    }
+
+    @Override
+    public SpigotLuaPlayerInventory getInventory() {
+        return (SpigotLuaPlayerInventory) SpigotLuaToolkit.getAdapter().convertInventory(entity.getInventory());
     }
 
     @Override

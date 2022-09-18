@@ -60,4 +60,18 @@ public class enums extends TwoArgFunction {
     public static final int LEVEL_WARN = 1;
     public static final int LEVEL_ERROR = 2;
 
+    public static final int BC_BLUE = 0;
+    public static final int BC_GREEN = 1;
+    public static final int BC_PINK = 2;
+    public static final int BC_PURPLE = 3;
+    public static final int BC_RED = 4;
+    public static final int BC_WHITE = 5;
+    public static final int BC_YELLOW = 6;
+
+    public static final int BS_SOLID = 1;
+    public static final int BS_SIX_SEGMENT = 6;
+    public static final int BS_TEN_SEGMENT = 10;
+    public static final int BS_TWELVE_SEGMENT = 12;
+    public static final int BS_TWENTY_SEGMENT = 20;
+
 }

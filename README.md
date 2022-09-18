@@ -52,9 +52,8 @@ PlayerChat | Player player, String message | Called when a player chats
 
 ## Roadmap
 1. Finish documentation
-2. Implement Inventory
-3. Support all of the most common events
-4. TBA
+2. Support all of the most common events
+3. TBA
 
 ## Copyright Notice
 Copyright 2022 Wasabi Codes

@@ -11,8 +11,9 @@ package codes.wasabi.xplug.struct;
 import codes.wasabi.xplug.struct.command.LuaCommandManager;
 import codes.wasabi.xplug.struct.command.LuaCommandSender;
 import codes.wasabi.xplug.struct.entity.LuaPlayer;
-import codes.wasabi.xplug.struct.item.LuaItemStack;
+import codes.wasabi.xplug.struct.inventory.LuaItemStack;
 import codes.wasabi.xplug.struct.material.LuaMaterial;
+import codes.wasabi.xplug.struct.text.LuaBossBar;
 import codes.wasabi.xplug.struct.world.LuaWorld;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -54,5 +55,11 @@ public interface LuaToolkit {
     @Nullable LuaMaterial parseMaterial(LuaValue value, boolean exact);
 
     @NotNull LuaItemStack createItemStack(LuaMaterial lm, int count);
+
+    @NotNull LuaBossBar createBossBar(String title, int color, int style, boolean createFog, boolean darkenSky, boolean bossMusic);
+
+    @Nullable LuaPlayer parsePlayer(LuaValue value);
+
+    @Nullable LuaItemStack parseItemStack(LuaValue value);
 
 }

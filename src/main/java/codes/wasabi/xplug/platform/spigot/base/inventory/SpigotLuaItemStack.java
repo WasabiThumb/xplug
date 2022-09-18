@@ -1,4 +1,4 @@
-package codes.wasabi.xplug.platform.spigot.base.item;
+package codes.wasabi.xplug.platform.spigot.base.inventory;
 /*
   XPlug | A LUA platform for Spigot
   Copyright 2022 Wasabi Codes
@@ -11,7 +11,7 @@ package codes.wasabi.xplug.platform.spigot.base.item;
 import xyz.wasabicodes.matlib.MaterialLib;
 import codes.wasabi.xplug.platform.spigot.base.SpigotLuaToolkit;
 import codes.wasabi.xplug.platform.spigot.base.material.SpigotLuaMaterial;
-import codes.wasabi.xplug.struct.item.LuaItemStack;
+import codes.wasabi.xplug.struct.inventory.LuaItemStack;
 import codes.wasabi.xplug.struct.material.LuaMaterial;
 import codes.wasabi.xplug.util.func.GetterFunction;
 import org.bukkit.inventory.ItemStack;
