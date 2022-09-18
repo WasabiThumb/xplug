@@ -14,7 +14,7 @@ if (not ply:IsOp()) then
 end
 
 local pos = ply:GetPos()
-local x = pos:GetX() + 15
+local x = pos:GetX() + 13
 local y = pos:GetY()
 local z = pos:GetZ()
 local world = ply:GetWorld()
@@ -22,7 +22,7 @@ local world = ply:GetWorld()
 local colors = { "RED", "GREEN", "BLUE", "CYAN", "MAGENTA", "YELLOW", "BLACK", "WHITE" }
 z = z - (#colors)
 
-local subjects = { "SHULKER_BOX", "STAINED_GLASS_PANE", "STAINED_GLASS", "GLAZED_TERRACOTTA", "TERRACOTTA", "CONCRETE", "WOOL" }
+local subjects = { "STAINED_GLASS_PANE", "STAINED_GLASS", "GLAZED_TERRACOTTA", "TERRACOTTA", "CONCRETE", "WOOL" }
 
 local zo = 0
 for _,v in ipairs(colors) do
