@@ -22,7 +22,7 @@ import org.luaj.vm2.lib.ZeroArgFunction;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
 import java.lang.ref.SoftReference;
-import java.util.*;;
+import java.util.*;
 
 public class LuaSandbox {
 

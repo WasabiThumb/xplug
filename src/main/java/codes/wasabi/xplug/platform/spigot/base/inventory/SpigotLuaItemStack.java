@@ -8,6 +8,14 @@ package codes.wasabi.xplug.platform.spigot.base.inventory;
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
+import io.papermc.lib.PaperLib;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.Nullable;
 import xyz.wasabicodes.matlib.MaterialLib;
 import codes.wasabi.xplug.platform.spigot.base.SpigotLuaToolkit;
 import codes.wasabi.xplug.platform.spigot.base.material.SpigotLuaMaterial;
@@ -61,6 +69,45 @@ public class SpigotLuaItemStack implements LuaItemStack {
     @Override
     public int getStackSize() {
         return is.getMaxStackSize();
+    }
+
+    @Override
+    public @Nullable String getDisplayName() {
+        ItemMeta meta = is.getItemMeta();
+        if (meta == null) return null;
+        if (meta.hasDisplayName()) {
+            TextComponent tc = LegacyComponentSerializer.legacySection().deserialize(meta.getDisplayName());
+            return MiniMessage.miniMessage().serialize(tc);
+        } else if (meta.hasLocalizedName()) {
+            return meta.getLocalizedName();
+        }
+        return null;
+    }
+
+    @Override
+    public @Nullable String getDisplayNameStripped() {
+        ItemMeta meta = is.getItemMeta();
+        if (meta == null) return null;
+        if (meta.hasDisplayName()) {
+            TextComponent tc = LegacyComponentSerializer.legacySection().deserialize(meta.getDisplayName());
+            return PlainTextComponentSerializer.plainText().serialize(tc);
+        } else if (PaperLib.isVersion(11, 2)) {
+            if (meta.hasLocalizedName()) return meta.getLocalizedName();
+        }
+        return null;
+    }
+
+    @Override
+    public void setDisplayName(String displayName) {
+        ItemMeta meta = is.getItemMeta();
+        if (meta == null) return;
+        if (displayName == null) {
+            meta.setDisplayName(null);
+        } else {
+            Component c = MiniMessage.miniMessage().deserialize(displayName);
+            meta.setDisplayName(LegacyComponentSerializer.legacyAmpersand().serialize(c));
+        }
+        is.setItemMeta(meta);
     }
 
     @Override

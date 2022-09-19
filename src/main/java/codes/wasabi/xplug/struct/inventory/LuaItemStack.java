@@ -13,6 +13,7 @@ import codes.wasabi.xplug.struct.LuaValueHolder;
 import codes.wasabi.xplug.struct.material.LuaMaterial;
 import codes.wasabi.xplug.util.func.GetterFunction;
 import codes.wasabi.xplug.util.func.OneArgMetaFunction;
+import org.jetbrains.annotations.Nullable;
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
@@ -32,6 +33,12 @@ public interface LuaItemStack extends LuaValueHolder {
     void setCount(int count);
 
     int getStackSize();
+
+    @Nullable String getDisplayName();
+
+    @Nullable String getDisplayNameStripped();
+
+    void setDisplayName(String displayName);
 
     byte[] toByteArray();
 
@@ -76,6 +83,15 @@ public interface LuaItemStack extends LuaValueHolder {
                 byte[] encoded = Base64.getEncoder().encode(bytes);
                 String string = new String(encoded, StandardCharsets.UTF_8);
                 return LuaValue.valueOf(string);
+            }
+        });
+        lt.set("GetDisplayName", new GetterFunction(this::getDisplayName));
+        lt.set("GetDisplayNameStripped", new GetterFunction(this::getDisplayNameStripped));
+        lt.set("SetDisplayName", new OneArgMetaFunction() {
+            @Override
+            protected LuaValue call(LuaTable self, LuaValue arg) {
+                setDisplayName(arg.isnil() ? null : arg.checkjstring());
+                return LuaValue.NIL;
             }
         });
         return lt;
