@@ -7,7 +7,9 @@ package codes.wasabi.xplug.platform.spigot.base;
 */
 
 import codes.wasabi.xplug.XPlug;
+import codes.wasabi.xplug.platform.spigot.base.inventory.SpigotLuaItemStack;
 import codes.wasabi.xplug.struct.LuaEvents;
+import codes.wasabi.xplug.struct.inventory.LuaItemStack;
 import codes.wasabi.xplug.util.LuaBridge;
 import io.papermc.lib.PaperLib;
 import org.bukkit.*;
@@ -20,9 +22,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageByBlockEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -30,6 +30,7 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 public class SpigotLuaEvents extends LuaEvents implements Listener {
 
@@ -317,6 +318,75 @@ public class SpigotLuaEvents extends LuaEvents implements Listener {
                         return LuaValue.NIL;
                     }
                 }
+        );
+    }
+
+    @EventHandler
+    public void onDeath(EntityDeathEvent event) {
+        List<ItemStack> drops = event.getDrops();
+        int dropCount = drops.size();
+        LuaValue[] items = new LuaValue[dropCount];
+        for (int i=0; i < dropCount; i++) {
+            SpigotLuaItemStack slis = SpigotLuaToolkit.getAdapter().convertItemStack(drops.get(i));
+            items[i] = (slis == null ? LuaValue.NIL : slis.getLuaValue());
+        }
+        Object[] args = new Object[] {
+                adapter().convertEntity(event.getEntity()),
+                event.getDroppedExp(),
+                new OneArgFunction() {
+                    @Override
+                    public LuaValue call(LuaValue arg) {
+                        event.setDroppedExp(arg.toint());
+                        return LuaValue.NIL;
+                    }
+                },
+                LuaValue.listOf(items),
+                new OneArgFunction() {
+                    @Override
+                    public LuaValue call(LuaValue arg) {
+                        LuaValue[] array = LuaBridge.parseList(arg.checktable());
+                        List<ItemStack> drops = event.getDrops();
+                        drops.clear();
+                        for (LuaValue value : array) {
+                            LuaItemStack lis = SpigotLuaToolkit.getInstance().parseItemStack(value);
+                            if (lis != null) {
+                                drops.add(SpigotLuaToolkit.getAdapter().convertItemStack(lis));
+                            }
+                        }
+                        return LuaValue.NIL;
+                    }
+                }
+        };
+        if (event instanceof PlayerDeathEvent) {
+            PlayerDeathEvent playerEvent = (PlayerDeathEvent) event;
+            Object[] newArgs = new Object[args.length + 4];
+            System.arraycopy(args, 0, newArgs, 0, args.length);
+            newArgs[newArgs.length - 4] = playerEvent.getDeathMessage();
+            newArgs[newArgs.length - 3] = new OneArgFunction() {
+                @Override
+                public LuaValue call(LuaValue arg) {
+                    playerEvent.setDeathMessage(arg.tojstring());
+                    return LuaValue.NIL;
+                }
+            };
+            newArgs[newArgs.length - 2] = playerEvent.getKeepInventory();
+            newArgs[newArgs.length - 1] = new OneArgFunction() {
+                @Override
+                public LuaValue call(LuaValue arg) {
+                    playerEvent.setKeepInventory(arg.toboolean());
+                    return LuaValue.NIL;
+                }
+            };
+            helper(
+                    event,
+                    "PlayerDeath",
+                    newArgs
+            );
+        }
+        helper(
+                event,
+                "EntityDeath",
+                args
         );
     }
 

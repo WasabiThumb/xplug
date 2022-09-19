@@ -58,6 +58,8 @@ PlayerDropItem | Player player, Entity itemEntity, ItemStack item | Called when 
 EntityDamage | Entity entity, String cause, double damage, Function<double> setDamage | Called when an entity takes damage for any reason
 EntityDamageByBlock | Entity entity, Block block, String cause, double damage, Function<double> setDamage | Called when an entity takes damage from a block
 EntityDamageByEntity | Entity entity, Entity damager, String cause, double damage, Function<double> setDamage | Called when an entity takes damage from an entity
+EntityDeath | Entity entity, int exp, Function<int> setExp, table<ItemStack> drops, Function<table<ItemStack>> setDrops | Called when an entity dies
+PlayerDeath | Entity entity, int exp, Function<int> setExp, table<ItemStack> drops, Function<table<ItemStack>> setDrops, String deathMessage, Function<String> setDeathMessage, boolean keepInventory, Function<boolean> setKeepInventory | Called when a player dies
 
 ## Roadmap
 1. Finish documentation

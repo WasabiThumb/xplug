@@ -159,6 +159,19 @@ public class LuaBridge {
         }
     }
 
+    public static @NotNull LuaValue[] parseList(LuaTable table) {
+        int maxIndex = 0;
+        for (LuaValue key : table.keys()) {
+            maxIndex = Math.max(maxIndex, key.toint());
+        }
+        if (maxIndex == 0) return new LuaValue[0];
+        LuaValue[] ret = new LuaValue[maxIndex];
+        for (int i=0; i < maxIndex; i++) {
+            ret[i] = table.get(i + 1);
+        }
+        return ret;
+    }
+
     public static @NotNull String extractString(@NotNull LuaValue lv, @NotNull String methodName) {
         if (lv.isstring()) {
             return lv.checkjstring();
