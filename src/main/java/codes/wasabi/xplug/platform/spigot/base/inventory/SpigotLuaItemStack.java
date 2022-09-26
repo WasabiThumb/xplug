@@ -105,7 +105,7 @@ public class SpigotLuaItemStack implements LuaItemStack {
             meta.setDisplayName(null);
         } else {
             Component c = MiniMessage.miniMessage().deserialize(displayName);
-            meta.setDisplayName(LegacyComponentSerializer.legacyAmpersand().serialize(c));
+            meta.setDisplayName(LegacyComponentSerializer.legacySection().serialize(c));
         }
         is.setItemMeta(meta);
     }
