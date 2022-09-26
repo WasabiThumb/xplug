@@ -17,6 +17,10 @@ import io.papermc.lib.PaperLib;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+
 public interface SpigotLuaEntity extends LuaEntity {
 
     Entity getBukkitEntity();
@@ -101,6 +105,67 @@ public interface SpigotLuaEntity extends LuaEntity {
     @Override
     default LuaVector getVelocity() {
         return SpigotLuaToolkit.getAdapter().convertVector(getBukkitEntity().getVelocity());
+    }
+
+    @Override
+    default void setVelocity(LuaVector vector) {
+        getBukkitEntity().setVelocity(SpigotLuaToolkit.getAdapter().convertVector(vector));
+    }
+
+    @Override
+    default boolean unsafe(String member, Object... objects) {
+        Entity ent = getBukkitEntity();
+        Class<? extends Entity> clazz = ent.getClass();
+        boolean fieldSearch = true;
+        for (Method m : clazz.getMethods()) {
+            int mod = m.getModifiers();
+            if (!Modifier.isPublic(mod)) continue;
+            if (Modifier.isStatic(mod)) continue;
+            if (m.getName().equalsIgnoreCase(member)) {
+                fieldSearch = false;
+                Class<?>[] param = m.getParameterTypes();
+                if (param.length != objects.length) continue;
+                boolean all = true;
+                for (int i=0; i < param.length; i++) {
+                    Object ob = objects[i];
+                    if (ob == null) continue;
+                    if (!param[i].isInstance(ob)) {
+                        all = false;
+                        break;
+                    }
+                }
+                if (!all) continue;
+                try {
+                    m.invoke(ent, objects);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+        }
+        if (!fieldSearch) return false;
+        if (objects.length != 1) return false;
+        Object ob = objects[0];
+        Field f = null;
+        for (Field field : clazz.getFields()) {
+            int mod = field.getModifiers();
+            if (!Modifier.isPublic(mod)) continue;
+            if (Modifier.isStatic(mod)) continue;
+            if (Modifier.isFinal(mod)) continue;
+            String fName = field.getName();
+            if (fName.equalsIgnoreCase(member)) {
+                f = field;
+                if (fName.equals(member)) break;
+            }
+        }
+        if (f == null) return false;
+        try {
+            f.set(ent, ob);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

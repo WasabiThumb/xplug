@@ -8,6 +8,7 @@ package codes.wasabi.xplug.struct;
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
+import codes.wasabi.xplug.struct.material.LuaMaterial;
 import codes.wasabi.xplug.struct.world.LuaWorld;
 import java.awt.Color;
 
@@ -32,6 +33,8 @@ public interface LuaParticleTools {
     }
 
     void setSpeed(float speed);
+
+    void setMaterial(LuaMaterial mat);
 
     void end();
 

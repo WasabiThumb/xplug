@@ -12,6 +12,7 @@ import codes.wasabi.xplug.XPlug;
 import codes.wasabi.xplug.struct.LuaParticleTools;
 import codes.wasabi.xplug.struct.LuaToolkit;
 import codes.wasabi.xplug.struct.data.LuaLocation;
+import codes.wasabi.xplug.struct.material.LuaMaterial;
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
@@ -40,6 +41,7 @@ public class particle extends TwoArgFunction {
         library.set("SetOffsetZ", new SetOffsetZ());
         library.set("SetOffset", new SetOffset());
         library.set("SetSpeed", new SetSpeed());
+        library.set("SetMaterial", new SetMaterial());
         library.set("End", new End());
         env.set("particle", library);
         return library;
@@ -127,6 +129,15 @@ public class particle extends TwoArgFunction {
         @Override
         public LuaValue call(LuaValue arg) {
             pt.setSpeed(arg.checknumber().tofloat());
+            return LuaValue.NIL;
+        }
+    }
+
+    static class SetMaterial extends OneArgFunction {
+        @Override
+        public LuaValue call(LuaValue arg) {
+            LuaMaterial lm = tk.parseMaterial(arg, false);
+            pt.setMaterial(lm);
             return LuaValue.NIL;
         }
     }

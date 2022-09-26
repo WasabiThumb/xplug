@@ -46,12 +46,12 @@ public class LuaLocation implements LuaValueHolder {
 
     public static @Nullable LuaLocation fromLuaValue(LuaValue lv) {
         if (lv.istable()) {
-            LuaWorld world = XPlug.getToolkit().getWorld(LuaBridge.extractName(lv.get(1)));
-            double x = lv.get(2).todouble();
-            double y = lv.get(3).todouble();
-            double z = lv.get(4).todouble();
-            float yaw = lv.get(5).tofloat();
-            float pitch = lv.get(6).tofloat();
+            LuaWorld world = XPlug.getToolkit().getWorld(LuaBridge.extractName(lv.get(6)));
+            double x = lv.get(1).todouble();
+            double y = lv.get(2).todouble();
+            double z = lv.get(3).todouble();
+            float yaw = lv.get(4).tofloat();
+            float pitch = lv.get(5).tofloat();
             return new LuaLocation(world, x, y, z, yaw, pitch);
         }
         return null;
@@ -217,12 +217,13 @@ public class LuaLocation implements LuaValueHolder {
     }
 
     private void setTableParams(LuaTable lt) {
-        lt.set(1, LuaBridge.toLua(world));
-        lt.set(2, LuaValue.valueOf(x));
-        lt.set(3, LuaValue.valueOf(y));
-        lt.set(4, LuaValue.valueOf(z));
-        lt.set(5, LuaValue.valueOf(yaw));
-        lt.set(6, LuaValue.valueOf(pitch));
+        // formerly sequential, however was changed so that Vector can be implicitly down-casted from Location
+        lt.set(6, LuaBridge.toLua(world));
+        lt.set(1, LuaValue.valueOf(x));
+        lt.set(2, LuaValue.valueOf(y));
+        lt.set(3, LuaValue.valueOf(z));
+        lt.set(4, LuaValue.valueOf(yaw));
+        lt.set(5, LuaValue.valueOf(pitch));
         lt.set("world", LuaBridge.toLua(world));
         lt.set("x", LuaValue.valueOf(x));
         lt.set("y", LuaValue.valueOf(y));

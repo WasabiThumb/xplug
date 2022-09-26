@@ -125,7 +125,13 @@ public class LuaBridge {
         if (lv.isboolean()) {
             return lv.toboolean();
         } else if (lv.isnumber()) {
-            return lv.todouble();
+            if (lv.isint()) {
+                return lv.toint();
+            } else if (lv.islong()) {
+                return lv.tolong();
+            } else {
+                return lv.todouble();
+            }
         } else if (lv.isstring()) {
             return lv.tojstring();
         } else if (lv.istable()) {
@@ -142,11 +148,13 @@ public class LuaBridge {
                 }
                 if (minKey > 0) {
                     int range = (maxKey - minKey) + 1;
-                    Object[] ret = new Object[range];
-                    for (int i = 0; i < range; i++) {
-                        ret[i] = fromLua(lt.get(minKey + i));
+                    if (range < 8192) {
+                        Object[] ret = new Object[range];
+                        for (int i = 0; i < range; i++) {
+                            ret[i] = fromLua(lt.get(minKey + i));
+                        }
+                        return Arrays.asList(ret);
                     }
-                    return Arrays.asList(ret);
                 }
             }
             Map<Object, Object> map = new HashMap<>();
@@ -155,7 +163,9 @@ public class LuaBridge {
             }
             return map;
         } else {
-            return lv.touserdata();
+            Object ob = extractHandle(lv, Object.class);
+            if (ob == null) ob = lv.touserdata();
+            return ob;
         }
     }
 

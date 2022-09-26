@@ -66,6 +66,12 @@ public class SpigotLuaMaterial implements LuaMaterial {
     @Override
     public LuaTable getLuaValue() {
         LuaTable lt = LuaMaterial.super.getLuaValue();
+        lt.set("GetHandle", new ZeroArgFunction() {
+            @Override
+            public LuaValue call() {
+                return LuaValue.userdataOf(material.getBukkitMaterial());
+            }
+        });
         lt.set("GetMetaMaterial", new ZeroArgFunction() {
             @Override
             public LuaValue call() {
