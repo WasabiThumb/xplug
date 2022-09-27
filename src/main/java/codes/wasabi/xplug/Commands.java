@@ -51,6 +51,10 @@ public class Commands implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         Audience a = XPlug.getAdventure().sender(sender);
+        if (!(sender.isOp() || sender.hasPermission("xplug.xplug"))) {
+            a.sendMessage(Component.text("* You don't have permission to run this command!").color(NamedTextColor.RED));
+            return true;
+        }
         String sub = "help";
         if (args.length >= 1) {
             sub = args[0].toLowerCase(Locale.ROOT);
@@ -127,6 +131,10 @@ public class Commands implements CommandExecutor, TabCompleter {
                 );
                 break;
             case "run":
+                if (!(sender.isOp() || sender.hasPermission("xplug.run"))) {
+                    a.sendMessage(Component.text("* You don't have permission to run this command!").color(NamedTextColor.RED));
+                    return true;
+                }
                 if (args.length == 2) {
                     String fn = args[1];
                     File sf = XPlug.getScriptFolder();
@@ -201,6 +209,10 @@ public class Commands implements CommandExecutor, TabCompleter {
                 }
                 break;
             case "exec":
+                if (!(sender.isOp() || sender.hasPermission("xplug.exec"))) {
+                    a.sendMessage(Component.text("* You don't have permission to run this command!").color(NamedTextColor.RED));
+                    return true;
+                }
                 StringBuilder sb = new StringBuilder();
                 for (int i=1; i < args.length; i++) {
                     if (i > 1) sb.append(" ");

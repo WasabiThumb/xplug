@@ -16,3 +16,9 @@ permissions:
   xplug.xplug:
     description: Allows usage of the /xplug command
     default: true
+  xplug.run:
+    description: Allows usage of /xplug run
+    default: false
+  xplug.exec:
+    description: Allows usage of /xplug exec
+    default: false
