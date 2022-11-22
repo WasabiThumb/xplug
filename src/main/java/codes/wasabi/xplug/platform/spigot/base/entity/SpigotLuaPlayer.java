@@ -8,11 +8,13 @@ package codes.wasabi.xplug.platform.spigot.base.entity;
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
+import codes.wasabi.xplug.XPlug;
 import codes.wasabi.xplug.platform.spigot.base.SpigotLuaToolkit;
 import codes.wasabi.xplug.platform.spigot.base.command.SpigotLuaCommandSender;
 import codes.wasabi.xplug.platform.spigot.base.inventory.SpigotLuaPlayerInventory;
 import codes.wasabi.xplug.struct.entity.LuaPlayer;
 import codes.wasabi.xplug.util.func.GetterFunction;
+import io.papermc.lib.PaperLib;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
@@ -23,6 +25,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
+
+import java.lang.reflect.Method;
 
 public class SpigotLuaPlayer extends SpigotLuaCommandSender implements LuaPlayer, SpigotLuaEntity {
 
@@ -89,6 +93,42 @@ public class SpigotLuaPlayer extends SpigotLuaCommandSender implements LuaPlayer
     @Override
     public void setGameMode(int mode) {
         entity.setGameMode(SpigotLuaToolkit.getAdapter().convertGameMode(mode));
+    }
+
+    @Override
+    public void hidePlayer(LuaPlayer player) {
+        Player target = SpigotLuaToolkit.getAdapter().convertPlayer(player);
+        if (target != null) {
+            if (PaperLib.isVersion(13)) {
+                entity.hidePlayer(XPlug.getInstance(), target);
+            } else {
+                Class<? extends Player> clazz = entity.getClass();
+                try {
+                    Method m = clazz.getMethod("hidePlayer", Player.class);
+                    m.invoke(entity, target);
+                } catch (ReflectiveOperationException e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void showPlayer(LuaPlayer player) {
+        Player target = SpigotLuaToolkit.getAdapter().convertPlayer(player);
+        if (target != null) {
+            if (PaperLib.isVersion(13)) {
+                entity.showPlayer(XPlug.getInstance(), target);
+            } else {
+                Class<? extends Player> clazz = entity.getClass();
+                try {
+                    Method m = clazz.getMethod("showPlayer", Player.class);
+                    m.invoke(entity, target);
+                } catch (ReflectiveOperationException e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        }
     }
 
     @Override

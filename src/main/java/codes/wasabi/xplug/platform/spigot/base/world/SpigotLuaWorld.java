@@ -31,7 +31,6 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Nullable;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaUserdata;
-import org.luaj.vm2.LuaValue;
 
 import java.util.*;
 import java.util.stream.Collectors;

@@ -8,6 +8,7 @@ package codes.wasabi.xplug.struct.entity;
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
+import codes.wasabi.xplug.XPlug;
 import codes.wasabi.xplug.struct.command.LuaCommandSender;
 import codes.wasabi.xplug.struct.inventory.LuaPlayerInventory;
 import codes.wasabi.xplug.util.func.GetterFunction;
@@ -36,6 +37,10 @@ public interface LuaPlayer extends LuaEntity, LuaCommandSender {
     int getGameMode();
 
     void setGameMode(int mode);
+
+    void hidePlayer(LuaPlayer player);
+
+    void showPlayer(LuaPlayer player);
 
     @Override
     default LuaTable getLuaValue() {
@@ -68,6 +73,20 @@ public interface LuaPlayer extends LuaEntity, LuaCommandSender {
             @Override
             protected LuaValue call(LuaTable self, LuaValue arg) {
                 setGameMode(arg.checkint());
+                return LuaValue.NIL;
+            }
+        });
+        lt.set("HidePlayer", new OneArgMetaFunction() {
+            @Override
+            protected LuaValue call(LuaTable self, LuaValue arg) {
+                hidePlayer(XPlug.getToolkit().parsePlayer(arg));
+                return LuaValue.NIL;
+            }
+        });
+        lt.set("ShowPlayer", new OneArgMetaFunction() {
+            @Override
+            protected LuaValue call(LuaTable self, LuaValue arg) {
+                showPlayer(XPlug.getToolkit().parsePlayer(arg));
                 return LuaValue.NIL;
             }
         });
