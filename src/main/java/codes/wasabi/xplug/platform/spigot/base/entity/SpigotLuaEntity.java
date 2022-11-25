@@ -9,13 +9,21 @@ package codes.wasabi.xplug.platform.spigot.base.entity;
 */
 
 import codes.wasabi.xplug.platform.spigot.base.SpigotLuaToolkit;
+import codes.wasabi.xplug.platform.spigot.base.inventory.SpigotLuaEntityEquipment;
 import codes.wasabi.xplug.struct.data.LuaLocation;
 import codes.wasabi.xplug.struct.data.LuaVector;
 import codes.wasabi.xplug.struct.entity.LuaEntity;
+import codes.wasabi.xplug.struct.inventory.LuaEntityEquipment;
 import codes.wasabi.xplug.struct.world.LuaWorld;
 import io.papermc.lib.PaperLib;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.inventory.EntityEquipment;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.jetbrains.annotations.Nullable;
+import org.luaj.vm2.LuaError;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -110,6 +118,58 @@ public interface SpigotLuaEntity extends LuaEntity {
     @Override
     default void setVelocity(LuaVector vector) {
         getBukkitEntity().setVelocity(SpigotLuaToolkit.getAdapter().convertVector(vector));
+    }
+
+    static PotionEffectType parseEffectType(String effectType) throws LuaError {
+        PotionEffectType type = PotionEffectType.getByName(effectType);
+        if (type == null) {
+            try {
+                Field f = PotionEffectType.class.getDeclaredField(effectType);
+                if (Modifier.isStatic(f.getModifiers())) {
+                    Object ob = f.get(null);
+                    if (ob instanceof PotionEffectType) {
+                        type = (PotionEffectType) ob;
+                    }
+                }
+            } catch (ReflectiveOperationException ignored) { }
+            if (type == null) {
+                throw new LuaError("Unknown potion effect type \"" + effectType + "\"");
+            }
+        }
+        return type;
+    }
+
+    @Override
+    default boolean addPotionEffect(String effectType, int duration, int amplifier, boolean ambient, boolean particles, boolean icon) {
+        Entity ent = getBukkitEntity();
+        if (ent instanceof LivingEntity) {
+            PotionEffect effect;
+            if (PaperLib.isVersion(13)) {
+                effect = new PotionEffect(parseEffectType(effectType), duration, amplifier, ambient, particles, icon);
+            } else {
+                effect = new PotionEffect(parseEffectType(effectType), duration, amplifier, ambient, particles);
+            }
+            return ((LivingEntity) ent).addPotionEffect(effect);
+        }
+        return false;
+    }
+
+    @Override
+    default void removePotionEffect(String effectType) {
+        Entity ent = getBukkitEntity();
+        if (ent instanceof LivingEntity) {
+            ((LivingEntity) ent).removePotionEffect(parseEffectType(effectType));
+        }
+    }
+
+    @Override
+    default @Nullable LuaEntityEquipment getEquipment() {
+        Entity ent = getBukkitEntity();
+        if (ent instanceof LivingEntity) {
+            EntityEquipment equipment = ((LivingEntity) ent).getEquipment();
+            if (equipment != null) return new SpigotLuaEntityEquipment(equipment);
+        }
+        return null;
     }
 
     @Override

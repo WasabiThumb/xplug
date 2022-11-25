@@ -11,11 +11,13 @@ package codes.wasabi.xplug.struct.entity;
 import codes.wasabi.xplug.struct.LuaValueHolder;
 import codes.wasabi.xplug.struct.data.LuaLocation;
 import codes.wasabi.xplug.struct.data.LuaVector;
+import codes.wasabi.xplug.struct.inventory.LuaEntityEquipment;
 import codes.wasabi.xplug.struct.world.LuaWorld;
 import codes.wasabi.xplug.util.LuaBridge;
 import codes.wasabi.xplug.util.func.GetterFunction;
 import codes.wasabi.xplug.util.func.OneArgMetaFunction;
 import codes.wasabi.xplug.util.func.VarArgMetaFunction;
+import org.jetbrains.annotations.Nullable;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
@@ -72,6 +74,27 @@ public interface LuaEntity extends LuaValueHolder {
                 return LuaValue.NIL;
             }
         });
+        lt.set("AddPotionEffect", new VarArgMetaFunction() {
+            @Override
+            protected Varargs call(LuaTable self, Varargs args) {
+                String name = args.checkjstring(1);
+                int duration = args.checkint(2);
+                int amplifier = args.checkint(3);
+                int narg = args.narg();
+                boolean ambient = narg < 4 || args.toboolean(4);
+                boolean particles = narg < 5 || args.toboolean(5);
+                boolean icon = narg < 6 ? particles : args.toboolean(6);
+                return LuaValue.valueOf(ent.addPotionEffect(name, duration, amplifier, ambient, particles, icon));
+            }
+        });
+        lt.set("RemovePotionEffect", new OneArgMetaFunction() {
+            @Override
+            protected LuaValue call(LuaTable self, LuaValue arg) {
+                ent.removePotionEffect(arg.checkjstring());
+                return LuaValue.NIL;
+            }
+        });
+        lt.set("GetEquipment", new GetterFunction(ent::getEquipment));
         lt.set("Unsafe", new VarArgMetaFunction() {
             @Override
             protected Varargs call(LuaTable self, Varargs args) {
@@ -122,6 +145,12 @@ public interface LuaEntity extends LuaValueHolder {
     LuaVector getVelocity();
 
     void setVelocity(LuaVector vector);
+
+    boolean addPotionEffect(String effectType, int duration, int amplifier, boolean ambient, boolean particles, boolean icon);
+
+    void removePotionEffect(String effectType);
+
+    @Nullable LuaEntityEquipment getEquipment();
 
     boolean unsafe(String member, Object... objects);
 
