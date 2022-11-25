@@ -63,6 +63,7 @@ EntityDamageByBlock | Entity entity, Block block, String cause, double damage, F
 EntityDamageByEntity | Entity entity, Entity damager, String cause, double damage, Function<double> setDamage | Called when an entity takes damage from an entity
 EntityDeath | Entity entity, int exp, Function<int> setExp, table<ItemStack> drops, Function<table<ItemStack>> setDrops | Called when an entity dies
 PlayerDeath | Entity entity, int exp, Function<int> setExp, table<ItemStack> drops, Function<table<ItemStack>> setDrops, String deathMessage, Function<String> setDeathMessage, boolean keepInventory, Function<boolean> setKeepInventory | Called when a player dies
+EntityHeal | Entity entity, number amount, Function<number> setAmount | Called when an entity regains health
 
 ## Roadmap
 1. Finish documentation

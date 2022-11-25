@@ -390,4 +390,15 @@ public class SpigotLuaEvents extends LuaEvents implements Listener {
         );
     }
 
+    @EventHandler
+    public void onRegainHealth(EntityRegainHealthEvent event) {
+        helper(event, "EntityHeal", SpigotLuaToolkit.getAdapter().convertEntity(event.getEntity()), event.getAmount(), new OneArgFunction() {
+            @Override
+            public LuaValue call(LuaValue arg) {
+                event.setAmount(arg.todouble());
+                return LuaValue.NIL;
+            }
+        });
+    }
+
 }
