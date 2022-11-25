@@ -41,8 +41,8 @@ By far the most useful library is the "server" library, for example ``server.Get
 See the experimental API wiki here: [https://wasabithumb.github.io/xplug/](https://wasabithumb.github.io/xplug/)
 
 #### Events supported by hook.Add
-Hooks called with hook.Add are called in priority order for each event, until a callback returns a non-nil value.
-If the value is falsy, the event is cancelled. If the value is truthy, the event is guaranteed to pass as long as another plugin does not cancel it.
+Hooks called with hook.Add are called in priority order for each event, until a callback returns a non-nil value.\
+If the value is falsy, the event is cancelled. If the value is truthy, the event is guaranteed to pass as long as another plugin does not cancel it.\
 The priority set in hook.Add only affects when the hook is called in relation to other XPlug hooks, other plugin events can fire before or after all XPlug events.
 Event Name | Arguments | Description
 --: | :-: | :--
