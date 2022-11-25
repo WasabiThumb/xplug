@@ -41,13 +41,16 @@ By far the most useful library is the "server" library, for example ``server.Get
 See the experimental API wiki here: [https://wasabithumb.github.io/xplug/](https://wasabithumb.github.io/xplug/)
 
 #### Events supported by hook.Add
+Hooks called with hook.Add are called in priority order for each event, until a callback returns a non-nil value.
+If the value is falsy, the event is cancelled. If the value is truthy, the event is guaranteed to pass as long as another plugin does not cancel it.
+The priority set in hook.Add only affects when the hook is called in relation to other XPlug hooks, other plugin events can fire before or after all XPlug events.
 Event Name | Arguments | Description
 --: | :-: | :--
 Think | nil | Runs every server tick
 PlayerJoin | Player player, String joinMessage | Called when a player joins
 PlayerLeave | Player player, String quitMessage | Called when a player quits
 PlayerChangeWorld | Player player, World a, World b | Called when a player moves between worlds
-PlayerMove | Player player, Location a, Location b | Called when a player moves within a world. This is being refactored to use the Location API instead of individual numbers
+PlayerMove | Player player, Location a, Location b | Called when a player moves within a world.
 PlayerChat | Player player, String message | Called when a player chats
 PlayerChangeGameMode | Player player, int previousMode, int newMode | Called when a player changes their game mode
 PlayerPlaceBlock | Player player, Block block, Block placedAgainst, ItemStack itemInHand | Called when a player places a block
@@ -63,8 +66,9 @@ PlayerDeath | Entity entity, int exp, Function<int> setExp, table<ItemStack> dro
 
 ## Roadmap
 1. Finish documentation
-2. Support all of the most common events
-3. TBA
+2. Support all the most common events
+3. Make EntityType and PotionEffect version-independent
+4. TBA
 
 ## Copyright Notice
 Copyright 2022 Wasabi Codes
