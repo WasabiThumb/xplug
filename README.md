@@ -1,7 +1,7 @@
 # <!-- XPlug --> <img src="https://wasabicodes.xyz/cdn/b1c680ff86f27f18d4c896f3af5049e5/banner.png" alt="XPlug" style="height: 5em">
 **A LUA Platform for Spigot**
 
-![Build Status](https://img.shields.io/github/workflow/status/WasabiThumb/xplug/Java%20CI%20with%20Maven?logo=github&style=for-the-badge)
+![Build Status](https://img.shields.io/github/actions/workflow/status/WasabiThumb/xplug/maven.yml?branch=master&style=for-the-badge)
 ![Download Count](https://img.shields.io/github/downloads/WasabiThumb/xclaim/total?label=DOWNLOADS&logo=github&style=for-the-badge)
 ![Issues](https://img.shields.io/github/issues/WasabiThumb/xplug?style=for-the-badge&logo=github)\
 ![License](https://img.shields.io/github/license/WasabiThumb/xplug?style=for-the-badge)
